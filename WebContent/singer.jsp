@@ -171,29 +171,6 @@
 		</div>
 		<!--/fluid-row-->
 
-		<!-- Ad, you can remove it -->
-		<div class="row">
-			<div class="col-md-9 col-lg-9 col-xs-9  hidden-xs">
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-				<!-- Charisma Demo 2 -->
-				<ins class="adsbygoogle"
-					style="display: inline-block; width: 728px; height: 90px"
-					data-ad-client="ca-pub-5108790028230107" data-ad-slot="3193373905"></ins>
-				<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-				</script>
-			</div>
-			<div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 donate">
-				<div>
-					<small>Help development of Charisma</small>
-				</div>
-				<a class="btn btn-default"
-					href="http://flattr.com/thing/1507720/usmanhalalitcharisma-on-GitHub"
-					target="_blank"><i class="glyphicon glyphicon-usd green"></i> Donate</a>
-			</div>
-
-		</div>
-		<!-- Ad ends -->
 
 		<hr>
 
@@ -219,12 +196,12 @@
 
 		<footer class="row">
 			<p class="col-md-9 col-sm-9 col-xs-12 copyright">
-				&copy; <a href="http://usman.it" target="_blank">Muhammad Usman</a> 2012 -
+				&copy; <a href="http://www.google.com" target="_blank">Music Tour</a> 2012 -
 				2014
 			</p>
 
 			<p class="col-md-3 col-sm-3 col-xs-12 powered-by">
-				Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a>
+				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music Tour</a>
 			</p>
 		</footer>
 

@@ -39,7 +39,7 @@ public class DBManager {
 
 	public void connect() {
 		try {
-			url = "jdbc:mysql://localhost/musicfans?user=root&password=root?useUnicode=true&characterEncoding=UTF-8";
+			url = "jdbc:mysql://localhost/MusicFans?user=root&password=root?useUnicode=true&characterEncoding=UTF-8";
 			user = "root";
 			password = "root";
 			conn = DriverManager.getConnection(url, user, password);

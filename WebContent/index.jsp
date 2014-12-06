@@ -31,12 +31,10 @@
 <link href='bower_components/fullcalendar/dist/fullcalendar.print.css'
 	rel='stylesheet' media='print'>
 <link href='bower_components/chosen/chosen.min.css' rel='stylesheet'>
-<link href='bower_components/colorbox/example3/colorbox.css'
-	rel='stylesheet'>
+<link href='bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
 <link href='bower_components/responsive-tables/responsive-tables.css'
 	rel='stylesheet'>
-<link
-	href='bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css'
+<link href='bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css'
 	rel='stylesheet'>
 <link href='css/jquery.noty.css' rel='stylesheet'>
 <link href='css/noty_theme_default.css' rel='stylesheet'>
@@ -47,13 +45,16 @@
 <link href='css/animate.min.css' rel='stylesheet'>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 <!-- jQuery -->
 <script src="bower_components/jquery/jquery.min.js"></script>
@@ -87,15 +88,14 @@
 
 			<div class="row">
 				<div class="well col-md-5 center login-box">
-					<div style="display:none" class="alert alert-info">Please login with your Username
-						and Password.</div>
-					<form class="form-horizontal" action="index.html" method="post">
+					<div style="display: none" class="alert alert-info">Please login with
+						your Username and Password.</div>
+					<form class="form-horizontal">
 						<fieldset>
 							<!-- Type -->
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-music red"></i></span> <select
-									class="form-control">
+									class="glyphicon glyphicon-music red"></i></span> <select class="form-control">
 									<option>I'm a music fan</option>
 									<option>I'm a singer</option>
 								</select>
@@ -104,36 +104,37 @@
 							<br>
 
 							<div class="input-group input-group-lg">
-								<span class="input-group-addon">
-								<i class="glyphicon glyphicon-user red"></i>
-								</span> 
-								<input type="text" class="form-control" placeholder="Username">
+								<span class="input-group-addon"> <i
+									class="glyphicon glyphicon-user red"></i>
+								</span> <input id="username-input" value="justin123" type="text" class="form-control"
+									placeholder="Username">
 							</div>
 							<div class="clearfix"></div>
 							<br>
 
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-lock red"></i></span> <input
-									type="password" class="form-control" placeholder="Password">
+									class="glyphicon glyphicon-lock red"></i></span> 
+									<input type="password" value="abc123"
+									id="password-input" class="form-control" placeholder="Password">
 							</div>
 							<div class="clearfix"></div>
 
-<!-- 							<div class="input-prepend">
+							<!-- 							<div class="input-prepend">
 								<label class="remember" for="remember"><input
 									type="checkbox" id="remember"> Remember me</label>
 							</div>
 							<div class="clearfix"></div> -->
 
-							<div style="float:left;width:50%" class="input-group input-group-lg">
+							<div style="float: left; width: 50%" class="input-group input-group-lg">
 								<p class="center col-md-10">
 									<button type="submit" class="btn btn-success">I'm new</button>
 								</p>
 							</div>
-							
-							<div style="float:right;width:50%" class="input-group input-group-lg">
+
+							<div style="float: right; width: 50%" class="input-group input-group-lg">
 								<p class="center col-md-10">
-									<button type="submit" class="btn btn-primary">Login</button>
+									<button type="button" class="btn btn-primary" onclick="login()">Login</button>
 								</p>
 							</div>
 
@@ -170,8 +171,7 @@
 	<!-- library for making tables responsive -->
 	<script src="bower_components/responsive-tables/responsive-tables.js"></script>
 	<!-- tour plugin -->
-	<script
-		src="bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+	<script src="bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
 	<!-- star rating plugin -->
 	<script src="js/jquery.raty.min.js"></script>
 	<!-- for iOS style toggle switch -->
@@ -184,7 +184,33 @@
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript">
+		function login() {
+			debugger;
+			if ($("#username-input").val() == "") {
+				alert("Username cannot be empty.");
+				$("#username-input").focus();
+				return;
+			}
+			if ($("#password-input").val() == "") {
+				alert("Password cannot be empty.");
+				$("#password-input").focus();
+				return;
+			}
 
+			$.ajax({
+				url : "CheckPassword",
+				type : "POST",
+				username : $("#username-input").val(),
+				password : $("#password-input").val(),
+				flag: "0",
+			}).done(function(data) {
+				alert(data);
+			});
+
+		}
+	</script>
 
 </body>
 </html>

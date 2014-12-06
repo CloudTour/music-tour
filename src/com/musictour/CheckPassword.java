@@ -36,7 +36,8 @@ public class CheckPassword extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int flag = Integer.parseInt(request.getParameter("flag"));
+//		int flag = Integer.parseInt(request.getParameter("flag"));
+		int flag = 0;
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		DBManager ma = new DBManager();
