@@ -12,15 +12,15 @@ import org.json.simple.JSONObject;
 import com.musictour.dbManager.DBManager;
 
 /**
- * Servlet implementation class CheckPassword
+ * Servlet implementation class registerUser
  */
-public class CheckPassword extends HttpServlet {
+public class RegisterUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckPassword() {
+    public RegisterUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,17 +36,29 @@ public class CheckPassword extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int flag = Integer.parseInt(request.getParameter("flag"));
-		String name = request.getParameter("name");
+		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+		"yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(dt);
+		
 		DBManager ma = new DBManager();
 		ma.getDirver();
 		ma.connect();
-		int num = ma.checkPassWorld(name, password, flag);
+		int out = ma.insertUser(username, password, 0,
+				"", "", currentTime,
+				email, "", "", flag);
 		ma.shutdown();
-		
+		String info = null;
+		if(out == 0) info = "illegal input";
+		if(out == 1) info = "success";
+		if(out == 2) info = "exist email";
+		if(out == 3) info = "exist name";
 		JSONObject obj = new JSONObject();
-		obj.put("status", new String(num > 0 ? "success" : "fail"));
+		obj.put("status", new String(info));
 		response.getWriter().write(obj.toJSONString());
 	}
 

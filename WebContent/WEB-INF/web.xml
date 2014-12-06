@@ -11,16 +11,6 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>Registration</display-name>
-    <servlet-name>Registration</servlet-name>
-    <servlet-class>com.musictour.Registration</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Registration</servlet-name>
-    <url-pattern>/Registration</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>CheckPassword</display-name>
     <servlet-name>CheckPassword</servlet-name>
     <servlet-class>com.musictour.CheckPassword</servlet-class>
@@ -28,5 +18,15 @@
   <servlet-mapping>
     <servlet-name>CheckPassword</servlet-name>
     <url-pattern>/CheckPassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegisterUser</display-name>
+    <servlet-name>RegisterUser</servlet-name>
+    <servlet-class>com.musictour.registerUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>registerUser</servlet-name>
+    <url-pattern>/registerUser</url-pattern>
   </servlet-mapping>
 </web-app>
