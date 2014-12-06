@@ -37,7 +37,7 @@ public class UpdateBandProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBManager ma = new DBManager();
-		String username = request.getParameter("username");
+		String username = request.getParameter("bname");
 		String bpassword = request.getParameter("bpassword");
 		String blastname = request.getParameter("blastname");
 		String bfirstname = request.getParameter("bfirstname");
