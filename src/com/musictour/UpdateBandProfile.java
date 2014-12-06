@@ -12,15 +12,15 @@ import org.json.simple.JSONObject;
 import com.musictour.dbManager.DBManager;
 
 /**
- * Servlet implementation class CheckPassword
+ * Servlet implementation class UpdateBandProfile
  */
-public class CheckPassword extends HttpServlet {
+public class UpdateBandProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckPassword() {
+    public UpdateBandProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,17 +36,26 @@ public class CheckPassword extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int flag = Integer.parseInt(request.getParameter("flag"));
-		String name = request.getParameter("username");
-		String password = request.getParameter("password");
 		DBManager ma = new DBManager();
+		String username = request.getParameter("username");
+		String bpassword = request.getParameter("bpassword");
+		String blastname = request.getParameter("blastname");
+		String bfirstname = request.getParameter("bfirstname");
+		String bbirthdate = request.getParameter("bbirthdate");
+		String bemail = request.getParameter("bemail");
+		String bwebsite = request.getParameter("bwebsite");
+		
 		ma.getDirver();
 		ma.connect();
-		int num = ma.checkPassWorld(name, password, flag);
+		int out = ma.updateBandProfile(username, bpassword,
+				 blastname,  bfirstname,  bbirthdate,
+				 bemail,  bwebsite);
 		ma.shutdown();
-		
 		JSONObject obj = new JSONObject();
-		obj.put("status", new String(num > 0 ? "success" : "fail"));
+		String info = null;
+		if(out == 0) info = "fail";
+		if(out == 1) info = "success";
+		obj.put("status", new String(info));
 		response.getWriter().write(obj.toJSONString());
 	}
 

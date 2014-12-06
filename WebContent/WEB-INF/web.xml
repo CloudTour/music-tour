@@ -23,10 +23,30 @@
     <description></description>
     <display-name>RegisterUser</display-name>
     <servlet-name>RegisterUser</servlet-name>
-    <servlet-class>com.musictour.registerUser</servlet-class>
+    <servlet-class>com.musictour.RegisterUser</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>registerUser</servlet-name>
-    <url-pattern>/registerUser</url-pattern>
+    <servlet-name>RegisterUser</servlet-name>
+    <url-pattern>/RegisterUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetProfile</display-name>
+    <servlet-name>GetProfile</servlet-name>
+    <servlet-class>com.musictour.GetProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetProfile</servlet-name>
+    <url-pattern>/GetProfile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateBandProfile</display-name>
+    <servlet-name>UpdateBandProfile</servlet-name>
+    <servlet-class>com.musictour.UpdateBandProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateBandProfile</servlet-name>
+    <url-pattern>/UpdateBandProfile</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -12,15 +12,15 @@ import org.json.simple.JSONObject;
 import com.musictour.dbManager.DBManager;
 
 /**
- * Servlet implementation class CheckPassword
+ * Servlet implementation class GetBandProfile
  */
-public class CheckPassword extends HttpServlet {
+public class GetProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckPassword() {
+    public GetProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,18 +36,15 @@ public class CheckPassword extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int flag = Integer.parseInt(request.getParameter("flag"));
-		String name = request.getParameter("username");
-		String password = request.getParameter("password");
 		DBManager ma = new DBManager();
+		String username = request.getParameter("username");
+		int flag = Integer.parseInt(request.getParameter("flag"));
+		
 		ma.getDirver();
 		ma.connect();
-		int num = ma.checkPassWorld(name, password, flag);
+		String out = ma.getProfile(username, flag);
 		ma.shutdown();
-		
-		JSONObject obj = new JSONObject();
-		obj.put("status", new String(num > 0 ? "success" : "fail"));
-		response.getWriter().write(obj.toJSONString());
+		response.getWriter().write(out);
 	}
 
 }
