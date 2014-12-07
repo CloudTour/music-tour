@@ -92,7 +92,8 @@
 								<!-- Type -->
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-music red"></i></span> <select
+										class="glyphicon glyphicon-music red"></i></span> 
+									<select id = "type-select"
 										class="form-control">
 										<option>I'm a music fan</option>
 										<option>I'm a singer</option>
@@ -105,7 +106,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-user red"></i>
-									</span> <input type="text" class="form-control" placeholder="Username">
+									</span> <input id="username-input" type="text" class="form-control" placeholder="Username">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -114,7 +115,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-envelope red"></i>
-									</span> <input type="text" class="form-control" placeholder="Email">
+									</span> <input id="email-input" type="text" class="form-control" placeholder="Email">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -123,7 +124,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-lock red"></i>
-									</span> <input type="password" class="form-control" placeholder="Password">
+									</span> <input id="password-input" type="password" class="form-control" placeholder="Password">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -132,7 +133,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-lock red"></i>
-									</span> <input type="password" class="form-control"
+									</span> <input id="repeat-password-input" type="password" class="form-control"
 										placeholder="Repeat Password">
 								</div>
 								<div class="clearfix"></div>
@@ -144,7 +145,7 @@
 
 								<div style="float: right; width: 50%" class="input-group input-group-lg">
 									<p class="center col-md-10">
-										<button type="submit" class="btn btn-success">Create Account</button>
+										<button type="submit" class="btn btn-success" onclick="create()">Create Account</button>
 									</p>
 								</div>
 
@@ -198,7 +199,63 @@
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+	<script>
+		function create() {
+			if ($("#username-input").val() == "") {
+				alert("Username cannot be empty.");
+				$("#username-input").focus();
+				return;
+			}
 
+			if ($("#email-input").val() == "") {
+				alert("Email cannot be empty.");
+				$("#email-input").focus();
+				return;
+			}
+
+			if ($("#password-input").val() == "") {
+				alert("Password cannot be empty.");
+				$("#password-input").focus();
+				return;
+			}
+			
+			if ($("#repeat-password-input").val() == "") {
+				alert("Password cannot be empty.");
+				$("#repeat-password-input").focus();
+				return;
+			}
+			
+			if ($("#password-input").val() != $("#repeat-password-input").val()) {
+				alert("Passwords not match.");
+				$("#repeat-password-input").focus();
+				return;
+			}
+			
+			$.ajax({
+				url : "RegisterUser",
+				type : "POST",
+				data: {
+					username:$("#username-input").val(),
+					password:$("#password-input").val(),
+					email:$("#email-input").val(),
+					flag: $("#type-select").prop("selectedIndex"),
+				}
+			}).done(function(data) {
+				debugger;				
+				var result = JSON.parse(data);
+				if (result.status != "success") {
+					alert(result.status);
+					$("#username-input").focus();
+				} else if ($("#type-select").prop("selectedIndex") == "0") {
+					alert("user");
+				} else {
+					window.location.href = "singer.jsp?username=" + $("#username-input").val();
+				}
+			});
+		}
+	
+	</script>
 
 </body>
 </html>
