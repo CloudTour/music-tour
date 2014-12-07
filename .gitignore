@@ -1,8 +1,5 @@
 src/AwsCredentials.properties
 *.class
-.settings/org.eclipse.wst.common.project.facet.core.xml
-.settings/org.eclipse.jdt.core.prefs
-*.class
-build/classes/com/musictour/dbManager/DBManager.class
-WebContent/index.jsp
-WebContent/index.jsp
+.classpath
+build
+.settings
