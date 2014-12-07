@@ -119,4 +119,14 @@
     <servlet-name>GetBandByFan</servlet-name>
     <url-pattern>/GetBandByFan</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllBand</display-name>
+    <servlet-name>GetAllBand</servlet-name>
+    <servlet-class>com.musictour.GetAllBand</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllBand</servlet-name>
+    <url-pattern>/GetAllBand</url-pattern>
+  </servlet-mapping>
 </web-app>

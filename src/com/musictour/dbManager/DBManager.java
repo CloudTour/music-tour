@@ -411,6 +411,33 @@ public class DBManager {
 		return array.toJSONString();
 	}
 	
+	public String getAllBand() {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from band";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			//preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("bname", rs.getString("bname"));
+				obj.put("bpassword", rs.getString("bpassword"));
+				obj.put("blastname", rs.getString("blastname"));
+				obj.put("bfirstname", rs.getString("bfirstname"));
+				obj.put("bbirthdate", rs.getString("bbirthdate"));
+				obj.put("bemail", rs.getString("bemail"));
+				obj.put("bwebsite", rs.getString("bwebsite"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public String getRatedConcertByUserName(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -647,7 +674,7 @@ public class DBManager {
 		//System.out.print(ma.addRate("zy123", "1", "3", "good"));
 		//System.out.print(ma.getRatedByConcert("1"));
 		//ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av", "sdf", "1");
-		System.out.println(ma.getConcertByFan("zy123"));
+		System.out.println(ma.getAllBand());
 		//ma.deleteFan("zy123", "MBand");
 		ma.shutdown();
 	}
