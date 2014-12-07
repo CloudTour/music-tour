@@ -440,6 +440,28 @@ public class DBManager {
 		return array.toJSONString();
 	}
 	
+	public String getRatedByConcert(String cid) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from rate where cid = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, cid);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", rs.getString("uname"));
+				obj.put("cid", rs.getString("cid"));
+				obj.put("rate", rs.getString("rate"));
+				obj.put("review", rs.getString("review"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public static String getNow() {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
@@ -513,7 +535,7 @@ public class DBManager {
 		// System.out.print(out);
 		//ma.addConcert("cname","bname","2014-12-06 22:00:25","5","url","vname", null,"1");
 		//System.out.print(ma.addRate("zy123", "1", "3", "good"));
-		System.out.print(ma.getAllConcert());
+		System.out.print(ma.getRatedByConcert("1"));
 		ma.shutdown();
 	}
 }
