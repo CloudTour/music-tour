@@ -129,4 +129,54 @@
     <servlet-name>GetAllBand</servlet-name>
     <url-pattern>/GetAllBand</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddFollow</display-name>
+    <servlet-name>AddFollow</servlet-name>
+    <servlet-class>com.musictour.AddFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddFollow</servlet-name>
+    <url-pattern>/AddFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteFollow</display-name>
+    <servlet-name>DeleteFollow</servlet-name>
+    <servlet-class>com.musictour.dbManager.DeleteFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteFollow</servlet-name>
+    <url-pattern>/DeleteFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetFollowerByFollow</display-name>
+    <servlet-name>GetFollowerByFollow</servlet-name>
+    <servlet-class>com.musictour.GetFollowerByFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetFollowerByFollow</servlet-name>
+    <url-pattern>/GetFollowerByFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetFollowingByFollow</display-name>
+    <servlet-name>GetFollowingByFollow</servlet-name>
+    <servlet-class>com.musictour.GetFollowingByFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetFollowingByFollow</servlet-name>
+    <url-pattern>/GetFollowingByFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecommendConcertByFan</display-name>
+    <servlet-name>RecommendConcertByFan</servlet-name>
+    <servlet-class>com.musictour.RecommendConcertByFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecommendConcertByFan</servlet-name>
+    <url-pattern>/RecommendConcertByFan</url-pattern>
+  </servlet-mapping>
 </web-app>

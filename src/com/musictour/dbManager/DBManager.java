@@ -563,12 +563,49 @@ public class DBManager {
 		return array.toJSONString();
 	}
 	
+	public String getFollowerByFollow(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = "select follower from fan where uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("follower", rs.getString("follower"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public String getUserByFan(String bname) {
 		JSONArray array = new JSONArray();
 		try {
 			sql = "select uname from fan where bname = ?";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, bname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", rs.getString("uname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	//get uname's following
+	public String getFollowingByFollow(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = "select uname from follow where follower = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
@@ -589,6 +626,29 @@ public class DBManager {
 				updateStatus = conn.prepareStatement(sql);
 				updateStatus.setString(1, uname);
 				updateStatus.setString(2, bname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int addFollow(String uname, String follower) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert into follow values(?, ?)";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, follower);
 				updateStatus.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -627,12 +687,108 @@ public class DBManager {
 		return 1;
 	}
 	
+	public int deleteFollow(String uname, String follower) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "delete from fan where uname = ? and follower = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, follower);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
 	public String getConcertByFan(String uname) {
 		JSONArray array = new JSONArray();
 		try {
 			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, "
 					+ "c.cwebsite, c.vname, c.uname, c.confirmed from fan f, "
 					+ "concert c where f.uname = ? and f.bname = c.bname";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String getAllType() {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from type";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			//preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("tname", rs.getString("tname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String getSubType(String tname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from subtype where tname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, tname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("stname", rs.getString("stname"));
+				obj.put("tname", rs.getString("tname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String recommendConcertByFan(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select c.cid, c.cname, c.bname, c.cdatetime, "
+					+ "c.cprice, c.cwebsite, c.vname, c.confirmed "
+					+ "from fan f1, fan f2, fan f3, concert c "
+					+ "where f1.uname = ?"
+					+ "and f1.bname = f2.bname "
+					+ "and f2.uname = f3.uname "
+					+ "and f3.bname = c.bname "
+					+ "group by concert having count(*) >= 2;";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, uname);
 			rs = preparedStatement.executeQuery();
