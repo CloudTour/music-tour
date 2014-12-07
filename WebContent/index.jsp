@@ -1,3 +1,12 @@
+
+<%
+	if (session.getAttribute("username") != null) {
+		session.setAttribute("username", null);
+	}
+	if (session.getAttribute("usertype") != null) {
+		session.setAttribute("usertype", null);
+	}
+%>
 <!DOCTYPE html>
 <%String s = " "; %>
 <html lang="en">
@@ -96,7 +105,8 @@
 							<!-- Type -->
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-music red"></i></span> <select class="form-control">
+									class="glyphicon glyphicon-music red"></i></span> <select id="type-select"
+									class="form-control">
 									<option>I'm a music fan</option>
 									<option>I'm a singer</option>
 								</select>
@@ -107,17 +117,17 @@
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i
 									class="glyphicon glyphicon-user red"></i>
-								</span> <input id="username-input" value="justin123" type="text" class="form-control"
-									placeholder="Username">
+								</span> <input id="username-input" value="MBand" type="text"
+									class="form-control" placeholder="Username">
 							</div>
 							<div class="clearfix"></div>
 							<br>
 
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-lock red"></i></span> 
-									<input type="password" value="abc123"
-									id="password-input" class="form-control" placeholder="Password">
+									class="glyphicon glyphicon-lock red"></i></span> <input type="password"
+									value="addd" id="password-input" class="form-control"
+									placeholder="Password">
 							</div>
 							<div class="clearfix"></div>
 
@@ -129,7 +139,8 @@
 
 							<div style="float: left; width: 50%" class="input-group input-group-lg">
 								<p class="center col-md-10">
-									<button type="submit" class="btn btn-success">I'm new</button>
+									<button type="button" class="btn btn-success" onclick="register()">I'm
+										new</button>
 								</p>
 							</div>
 
@@ -201,15 +212,40 @@
 			}
 
 			$.ajax({
-				url : "CheckPassword",
-				type : "POST",
-				username : $("#username-input").val(),
-				password : $("#password-input").val(),
-				flag: "0",
-			}).done(function(data) {
-				alert(data);
-			});
+						url : "CheckPassword",
+						type : "POST",
+						data : {
+							username : $("#username-input").val(),
+							password : $("#password-input").val(),
+							flag : $("#type-select").prop("selectedIndex"),
+						}
+					})
+					.done(
+							function(data) {
+								var result = JSON.parse(data);
+								if (result.status == "fail") {
+									alert("Invalid username or password.")
+									$("#username-input").focus();
+								} else if ($("#type-select").prop(
+										"selectedIndex") == "0") {
+									window.location.href = "user.jsp?username="
+											+ $("#username-input").val()
+											+ "&type="
+											+ $("#type-select").prop(
+													"selectedIndex");
+								} else {
+									window.location.href = "singer.jsp?username="
+											+ $("#username-input").val()
+											+ "&type="
+											+ $("#type-select").prop(
+													"selectedIndex");
+								}
+							});
 
+		}
+
+		function register() {
+			window.location.href = "reg.jsp";
 		}
 	</script>
 

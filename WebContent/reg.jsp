@@ -144,7 +144,7 @@
 
 								<div style="float: right; width: 50%" class="input-group input-group-lg">
 									<p class="center col-md-10">
-										<button type="submit" class="btn btn-success">Create Account</button>
+										<button type="submit" class="btn btn-success" onclick="register()">Create Account</button>
 									</p>
 								</div>
 
@@ -198,7 +198,58 @@
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
+	<script>
+		function regsiter() {
+			if ($("#email-input").val() == "") {
+				alert("Email cannot be empty.");
+				$("#email-input").focus();
+				return;
+			}
 
+			if ($("#password-input").val() == "") {
+				alert("Password cannot be empty.");
+				$("#password-input").focus();
+				return;
+			}
+			
+			if ($("#repeat-password-input").val() == "") {
+				alert("Password cannot be empty.");
+				$("#repeat-password-input").focus();
+				return;
+			}
+			
+			if ($("#password-input").val() != $("#repeat-password-input").val()) {
+				alert("Passwords not match.");
+				$("#repeat-password-input").focus();
+				return;
+			}
+			
+			$.ajax({
+				url : "RegisterUser",
+				type : "POST",
+				data: {
+					username:$("#username-input").val(),
+					password:$("#password-input").val(),
+					email:$("#email-input").val(),
+					flag: $("#type-select").prop("selectedIndex"),
+				}
+			}).done(function(data) {
+				debugger;				
+				var result = JSON.parse(data);
+				if (result.status != "success") {
+					alert(result.status);
+					$("#username-input").focus();
+				} else if ($("#type-select").prop("selectedIndex") == "0") {
+					window.location.href = "singer.jsp?username=" + $("#username-input").val()
+							+"&type=0";
+				} else {
+					window.location.href = "singer.jsp?username=" + $("#username-input").val() 
+							+"&type=1";
+				}
+			});
+		}
+	
+	</script>
 
 </body>
 </html>

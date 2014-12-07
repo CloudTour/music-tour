@@ -7,13 +7,11 @@
 	}
 
 	if (session.getAttribute("usertype") == null) {
-		String usertype = request.getParameter("type");
+		String usertype = request.getParameter("usertype");
 		session.setAttribute("usertype", usertype);
 	}
 	String username = (String) session.getAttribute("username");
 	String usertype = (String) session.getAttribute("usertype");
-	System.out.println(usertype);
-
 %>
 
 <!DOCTYPE html>
@@ -34,7 +32,7 @@
         ===
     -->
 <meta charset="utf-8">
-<title>Singer's Home</title>
+<title><%=username%>'s Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
 	content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
@@ -91,6 +89,7 @@
 <body>
 	<p style="display: none;" id="username"><%=username%></p>
 
+	<!-- Add Table -->
 	<div class="row" id="popup"
 		style="display: none; width: 100%; height: 100%; position: absolute; z-index: 100;">
 		<div class="well col-md-5 center login-box">
@@ -103,6 +102,16 @@
 							class="glyphicon glyphicon-user red"></i>
 						</span> <input id="cname-input" type="text" class="form-control"
 							placeholder="Concert Name">
+					</div>
+					<div class="clearfix"></div>
+					<br>
+
+					<!-- band name -->
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon"> <i
+							class="glyphicon glyphicon-user red"></i>
+						</span> <input id="bname-input" type="text" class="form-control"
+							placeholder="Band Name">
 					</div>
 					<div class="clearfix"></div>
 					<br>
@@ -167,6 +176,8 @@
 	</div>
 	<!--/row-->
 
+
+
 	<!-- topbar starts -->
 	<div class="navbar navbar-default" role="navigation">
 
@@ -179,15 +190,12 @@
 
 			<!-- user dropdown starts -->
 			<div class="btn-group pull-right">
-				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">
-						Settings</span> <span class="caret"></span>
+				<button id="profile-btn" class="btn btn-default" onclick="profile()">
+					<i class="glyphicon glyphicon-user"></i> Profile
 				</button>
-				<ul class="dropdown-menu">
-					<li><a href="#">Profile</a></li>
-					<li class="divider"></li>
-					<li><a href="login.html">Logout</a></li>
-				</ul>
+				<button id="logout-btn" class="btn btn-default" onclick="logout()">
+					<i class="glyphicon glyphicon-log-out"></i> Logout
+				</button>
 			</div>
 			<!-- user dropdown ends -->
 
@@ -204,8 +212,10 @@
 						<div class="nav-sm nav nav-stacked"></div>
 						<ul class="nav nav-pills nav-stacked main-menu">
 							<li class="nav-header">Main</li>
-							<li><a class="ajax-link" href="index.html"><i
+							<li><a class="ajax-link" href="user.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
+							<li><a class="ajax-link" href="Concerts.jsp"><i
+									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -231,26 +241,19 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Blank</a></li>
+						<li><a href="#">Dashboard</a></li>
 					</ul>
 				</div>
 
+				<!-- Concerts added by user -->
 				<div class="row">
 					<div class="box col-md-12">
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Blank
+									<i class="glyphicon glyphicon-star-empty"></i> Concerts
 								</h2>
 
-								<div class="box-icon">
-									<a href="#" class="btn btn-setting btn-round btn-default"><i
-										class="glyphicon glyphicon-cog"></i></a> <a href="#"
-										class="btn btn-minimize btn-round btn-default"><i
-										class="glyphicon glyphicon-chevron-up"></i></a> <a href="#"
-										class="btn btn-close btn-round btn-default"><i
-										class="glyphicon glyphicon-remove"></i></a>
-								</div>
 							</div>
 							<div class="box-content">
 								<!-- put your content here -->
@@ -287,26 +290,6 @@
 
 		<hr>
 
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">�</button>
-						<h3>Settings</h3>
-					</div>
-					<div class="modal-body">
-						<p>Here settings can be configured...</p>
-					</div>
-					<div class="modal-footer">
-						<a href="#" class="btn btn-default" data-dismiss="modal">Close</a> <a
-							href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<footer class="row">
 			<p class="col-md-9 col-sm-9 col-xs-12 copyright">
 				&copy; <a href="http://www.google.com" target="_blank">Music Tour</a> 2012 -
@@ -314,7 +297,8 @@
 			</p>
 
 			<p class="col-md-3 col-sm-3 col-xs-12 powered-by">
-				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music Tour</a>
+				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music
+					Tour</a>
 			</p>
 		</footer>
 
@@ -363,11 +347,8 @@
 		function init() {
 			$
 					.ajax({
-						url : "GetConcertByBandName",
+						url : "GetAllConcert",
 						type : "POST",
-						data : {
-							bname : $("#username").html(),
-						}
 					})
 					.done(
 							function(data) {
@@ -429,6 +410,11 @@
 				$("#cname-input").focus();
 				return;
 			}
+			if ($("#bname-input").val() == "") {
+				alert("Band name cannot be empty.");
+				$("#bname-input").focus();
+				return;
+			}
 			if ($("#cdatetime-input").val() == "") {
 				alert("Time cannot be empty.");
 				$("#cdatetime-input").focus();
@@ -446,16 +432,16 @@
 			}
 
 			$.ajax({
-				url : "AddConcertByBand",
+				url : "AddConcertByUser",
 				type : "POST",
 				data : {
 					cname : $("#cname-input").val(),
-					bname : $("#username").html(),
+					bname : $("#bname-input").val(),
 					cdatetime : $("#cdatetime-input").val(),
 					cprice : $("#cprice-input").val(),
 					cwebsite : $("cwebsite-input").val(),
 					vname : $("#vname-input").val(),
-					uname : null,
+					uname : $("#username").html(),
 					confirmed : "1",
 				}
 			}).done(function(data) {
