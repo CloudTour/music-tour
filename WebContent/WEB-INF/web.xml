@@ -59,4 +59,14 @@
     <servlet-name>GetAllConcert</servlet-name>
     <url-pattern>/GetAllConcert</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetRateByConcert</display-name>
+    <servlet-name>GetRateByConcert</servlet-name>
+    <servlet-class>com.musictour.GetRateByConcert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRateByConcert</servlet-name>
+    <url-pattern>/GetRateByConcert</url-pattern>
+  </servlet-mapping>
 </web-app>
