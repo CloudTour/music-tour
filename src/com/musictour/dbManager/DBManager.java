@@ -280,7 +280,7 @@ public class DBManager {
 	public int addConcert(String cname, String bname, String cdatetime,
 			String cprice, String cwebsite, String vname, String uname,
 			String confirmed) {
-		
+
 		int maxCid = 1;
 		try {
 			sql = "SELECT IFNULL(MAX(cid)+1,1) FROM concert";
@@ -381,14 +381,14 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getAllConcert() {
 		JSONArray array = new JSONArray();
 		try {
 			sql = null;
 			sql = "select * from concert";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			//preparedStatement.setString(1, uname);
+			// preparedStatement.setString(1, uname);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
@@ -410,14 +410,14 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getAllBand() {
 		JSONArray array = new JSONArray();
 		try {
 			sql = null;
 			sql = "select * from band";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			//preparedStatement.setString(1, uname);
+			// preparedStatement.setString(1, uname);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
@@ -437,7 +437,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getRatedConcertByUserName(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -466,7 +466,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getRatedByConcert(String cid) {
 		JSONArray array = new JSONArray();
 		try {
@@ -488,7 +488,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public static String getNow() {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
@@ -497,7 +497,7 @@ public class DBManager {
 	}
 
 	public int addRate(String uname, String cid, String rate, String review) {
-		//uname cid rate review 
+		// uname cid rate review
 		try {
 			PreparedStatement updateStatus = null;
 			sql = "insert into rate values(?,?,?,?)";
@@ -521,7 +521,7 @@ public class DBManager {
 		}
 		return 1;
 	}
-	
+
 	public int updateUserScore(String uname, int uscore) {
 		try {
 			PreparedStatement updateStatus = null;
@@ -544,7 +544,7 @@ public class DBManager {
 		}
 		return 1;
 	}
-	
+
 	public String getBandByFan(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -562,7 +562,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getFollowerByFollow(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -580,7 +580,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getUserByFan(String bname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -598,8 +598,8 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
-	//get uname's following
+
+	// get uname's following
 	public String getFollowingByFollow(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -617,7 +617,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public int addFan(String uname, String bname) {
 		try {
 			PreparedStatement updateStatus = null;
@@ -640,7 +640,7 @@ public class DBManager {
 		}
 		return 1;
 	}
-	
+
 	public int addFollow(String uname, String follower) {
 		try {
 			PreparedStatement updateStatus = null;
@@ -663,7 +663,7 @@ public class DBManager {
 		}
 		return 1;
 	}
-	
+
 	public int deleteFan(String uname, String bname) {
 		try {
 			PreparedStatement updateStatus = null;
@@ -686,7 +686,7 @@ public class DBManager {
 		}
 		return 1;
 	}
-	
+
 	public int deleteFollow(String uname, String follower) {
 		try {
 			PreparedStatement updateStatus = null;
@@ -709,7 +709,7 @@ public class DBManager {
 		}
 		return 1;
 	}
-	
+
 	public String getConcertByFan(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -737,14 +737,14 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String getAllType() {
 		JSONArray array = new JSONArray();
 		try {
 			sql = null;
 			sql = "select * from type";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			//preparedStatement.setString(1, uname);
+			// preparedStatement.setString(1, uname);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
@@ -756,8 +756,8 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
-	public String getSubType(String tname) {
+
+	public String getStypeByType(String tname) {
 		JSONArray array = new JSONArray();
 		try {
 			sql = null;
@@ -776,7 +776,7 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
 	public String recommendConcertByFan(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -784,10 +784,8 @@ public class DBManager {
 			sql = "select c.cid, c.cname, c.bname, c.cdatetime, "
 					+ "c.cprice, c.cwebsite, c.vname, c.confirmed "
 					+ "from fan f1, fan f2, fan f3, concert c "
-					+ "where f1.uname = ?"
-					+ "and f1.bname = f2.bname "
-					+ "and f2.uname = f3.uname "
-					+ "and f3.bname = c.bname "
+					+ "where f1.uname = ?" + "and f1.bname = f2.bname "
+					+ "and f2.uname = f3.uname " + "and f3.bname = c.bname "
 					+ "group by concert having count(*) >= 2;";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, uname);
@@ -810,7 +808,31 @@ public class DBManager {
 		}
 		return array.toJSONString();
 	}
-	
+
+	// get similar type band
+	public String recommendBandByType(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select f2.bname "
+					+ "from fan f1, usertype t1, fan f2, usertype t2 "
+					+ "where f1.uname=? " + "and f1.uname = t1.uname "
+					+ "and f2.uname <> f1.uname " + "and t1.tname = t2.tname "
+					+ "and f1.bname <> f2.bname;";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("bname", rs.getString("bname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+
 	public static void main(String args[]) {
 		DBManager ma = new DBManager();
 		ma.getDirver();
@@ -826,12 +848,14 @@ public class DBManager {
 		// "", "", currentTime,
 		// "123@gmail.com", "", "", 1);
 		// System.out.print(out);
-		//ma.addConcert("cname","bname","2014-12-06 22:00:25","5","url","vname", null,"1");
-		//System.out.print(ma.addRate("zy123", "1", "3", "good"));
-		//System.out.print(ma.getRatedByConcert("1"));
-		//ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av", "sdf", "1");
+		// ma.addConcert("cname","bname","2014-12-06 22:00:25","5","url","vname",
+		// null,"1");
+		// System.out.print(ma.addRate("zy123", "1", "3", "good"));
+		// System.out.print(ma.getRatedByConcert("1"));
+		// ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av",
+		// "sdf", "1");
 		System.out.println(ma.getAllBand());
-		//ma.deleteFan("zy123", "MBand");
+		// ma.deleteFan("zy123", "MBand");
 		ma.shutdown();
 	}
 }

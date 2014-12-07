@@ -179,4 +179,34 @@
     <servlet-name>RecommendConcertByFan</servlet-name>
     <url-pattern>/RecommendConcertByFan</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecommendBandByType</display-name>
+    <servlet-name>RecommendBandByType</servlet-name>
+    <servlet-class>com.musictour.RecommendBandByType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecommendBandByType</servlet-name>
+    <url-pattern>/RecommendBandByType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetType</display-name>
+    <servlet-name>GetType</servlet-name>
+    <servlet-class>com.musictour.GetType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetType</servlet-name>
+    <url-pattern>/GetType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetStypeByType</display-name>
+    <servlet-name>GetStypeByType</servlet-name>
+    <servlet-class>com.musictour.GetStypeByType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetStypeByType</servlet-name>
+    <url-pattern>/GetStypeByType</url-pattern>
+  </servlet-mapping>
 </web-app>
