@@ -69,4 +69,54 @@
     <servlet-name>GetRateByConcert</servlet-name>
     <url-pattern>/GetRateByConcert</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetConcertByFan</display-name>
+    <servlet-name>GetConcertByFan</servlet-name>
+    <servlet-class>com.musictour.GetConcertByFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByFan</servlet-name>
+    <url-pattern>/GetConcertByFan</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddFan</display-name>
+    <servlet-name>AddFan</servlet-name>
+    <servlet-class>com.musictour.AddFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddFan</servlet-name>
+    <url-pattern>/AddFan</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteFan</display-name>
+    <servlet-name>DeleteFan</servlet-name>
+    <servlet-class>com.musictour.DeleteFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteFan</servlet-name>
+    <url-pattern>/DeleteFan</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetUserByFan</display-name>
+    <servlet-name>GetUserByFan</servlet-name>
+    <servlet-class>com.musictour.GetUserByFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserByFan</servlet-name>
+    <url-pattern>/GetUserByFan</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetBandByFan</display-name>
+    <servlet-name>GetBandByFan</servlet-name>
+    <servlet-class>com.musictour.GetBandByFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetBandByFan</servlet-name>
+    <url-pattern>/GetBandByFan</url-pattern>
+  </servlet-mapping>
 </web-app>

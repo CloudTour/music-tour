@@ -518,6 +518,116 @@ public class DBManager {
 		return 1;
 	}
 	
+	public String getBandByFan(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = "select bname from fan where uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("bname", rs.getString("bname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String getUserByFan(String bname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = "select uname from fan where bname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, bname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", rs.getString("uname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public int addFan(String uname, String bname) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert into fan values(?, ?)";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, bname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int deleteFan(String uname, String bname) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "delete from fan where uname = ? and bname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, bname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public String getConcertByFan(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, "
+					+ "c.cwebsite, c.vname, c.uname, c.confirmed from fan f, "
+					+ "concert c where f.uname = ? and f.bname = c.bname";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public static void main(String args[]) {
 		DBManager ma = new DBManager();
 		ma.getDirver();
@@ -535,7 +645,10 @@ public class DBManager {
 		// System.out.print(out);
 		//ma.addConcert("cname","bname","2014-12-06 22:00:25","5","url","vname", null,"1");
 		//System.out.print(ma.addRate("zy123", "1", "3", "good"));
-		System.out.print(ma.getRatedByConcert("1"));
+		//System.out.print(ma.getRatedByConcert("1"));
+		//ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av", "sdf", "1");
+		System.out.println(ma.getConcertByFan("zy123"));
+		//ma.deleteFan("zy123", "MBand");
 		ma.shutdown();
 	}
 }

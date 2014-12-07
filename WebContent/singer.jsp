@@ -1,13 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%
-	String username = request.getParameter("username");
-	session.setAttribute("username", username);
-
-	String usertype = request.getParameter("usertype");
-	session.setAttribute("usertype", usertype);
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +16,7 @@
         ===
     -->
 <meta charset="utf-8">
-<title><%=username%>'s Home</title>
+<title>Singer's Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
 	content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
@@ -81,7 +71,6 @@
 </head>
 
 <body>
-<p style="display: none" id="username"><%=username %></p>
 	<!-- topbar starts -->
 	<div class="navbar navbar-default" role="navigation">
 
@@ -94,12 +83,15 @@
 
 			<!-- user dropdown starts -->
 			<div class="btn-group pull-right">
-				<button id="profile-btn" class="btn btn-default" onclick="profile()">
-					<i class="glyphicon glyphicon-user"></i> Profile
+				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">
+						Settings</span> <span class="caret"></span>
 				</button>
-				<button id="logout-btn" class="btn btn-default" onclick="logout()">
-					<i class="glyphicon glyphicon-log-out"></i> Logout
-				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">Profile</a></li>
+					<li class="divider"></li>
+					<li><a href="login.html">Logout</a></li>
+				</ul>
 			</div>
 			<!-- user dropdown ends -->
 
@@ -143,7 +135,7 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Blank</a></li>
 					</ul>
 				</div>
 
@@ -152,43 +144,20 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Concerts
+									<i class="glyphicon glyphicon-star-empty"></i> Blank
 								</h2>
 
+								<div class="box-icon">
+									<a href="#" class="btn btn-setting btn-round btn-default"><i
+										class="glyphicon glyphicon-cog"></i></a> <a href="#"
+										class="btn btn-minimize btn-round btn-default"><i
+										class="glyphicon glyphicon-chevron-up"></i></a> <a href="#"
+										class="btn btn-close btn-round btn-default"><i
+										class="glyphicon glyphicon-remove"></i></a>
+								</div>
 							</div>
 							<div class="box-content">
 								<!-- put your content here -->
-								<table
-									class="table table-striped table-bordered bootstrap-datatable datatable responsive">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Band</th>
-											<th>Date</th>
-											<th>Price</th>
-											<th>Venue</th>
-										</tr>
-									</thead>
-									<tbody id="concert-tbody">
-										<tr>
-											<td>David R</td>
-											<td class="center">2012/01/01</td>
-											<td class="center">Member</td>
-											<td class="center"><span
-												class="label-success label label-default">Active</span></td>
-											<td class="center"><a class="btn btn-success" href="#"> <i
-													class="glyphicon glyphicon-zoom-in icon-white"></i> View
-											</a> <a class="btn btn-info" href="#"> <i
-													class="glyphicon glyphicon-edit icon-white"></i> Edit
-											</a> <a class="btn btn-danger" href="#"> <i
-													class="glyphicon glyphicon-trash icon-white"></i> Delete
-											</a></td>
-										</tr>
-
-									</tbody>
-								</table>
-
-
 							</div>
 						</div>
 					</div>
@@ -211,7 +180,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">Ã—</button>
+						<button type="button" class="close" data-dismiss="modal">×</button>
 						<h3>Settings</h3>
 					</div>
 					<div class="modal-body">
@@ -232,8 +201,7 @@
 			</p>
 
 			<p class="col-md-3 col-sm-3 col-xs-12 powered-by">
-				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music
-					Tour</a>
+				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music Tour</a>
 			</p>
 		</footer>
 
@@ -274,37 +242,6 @@
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
-	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-	<script>
-		function init() {
-			$.ajax({
-				url : "",
-				type : "POST",
-				data : {
-					username : $("#username").html(),
-				}
-			}).done(function(data) {
-				var result = JSON.parse(data);
-				var row = '<tr>' +
-					'<th>' + Name + '</th>' +
-					'<th>' + Band + '</th>' +
-					'<th>' + Date + '</th>' +
-					'<th>' + Price + '</th>' +
-					'<th>' + Venue + '</th>' +
-					'</tr>';
-				$("#concert-tbody").append(row);
-			});
-		}
-	
-		function profile() {
-			window.location.href = "singer-profile.jsp";
-		}
-		function logout() {
-			window.location.href = "index.jsp";
-		}
-		
-		init();
-	</script>
 
 
 </body>
