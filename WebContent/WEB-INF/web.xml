@@ -49,4 +49,14 @@
     <servlet-name>UpdateBandProfile</servlet-name>
     <url-pattern>/UpdateBandProfile</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllConcert</display-name>
+    <servlet-name>GetAllConcert</servlet-name>
+    <servlet-class>com.musictour.GetAllConcert</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllConcert</servlet-name>
+    <url-pattern>/GetAllConcert</url-pattern>
+  </servlet-mapping>
 </web-app>

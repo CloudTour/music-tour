@@ -3,3 +3,6 @@ src/AwsCredentials.properties
 .classpath
 build
 .settings
+WebContent/singer.jsp
+WebContent/reg.jsp
+WebContent/index.jsp

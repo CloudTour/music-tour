@@ -382,6 +382,35 @@ public class DBManager {
 		return array.toJSONString();
 	}
 	
+	public String getAllConcert() {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from concert";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			//preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public String getRatedConcertByUserName(String uname) {
 		JSONArray array = new JSONArray();
 		try {
@@ -484,7 +513,7 @@ public class DBManager {
 		// System.out.print(out);
 		//ma.addConcert("cname","bname","2014-12-06 22:00:25","5","url","vname", null,"1");
 		//System.out.print(ma.addRate("zy123", "1", "3", "good"));
-		System.out.print(ma.getRatedConcertByUserName("zy123"));
+		System.out.print(ma.getAllConcert());
 		ma.shutdown();
 	}
 }
