@@ -67,139 +67,9 @@ public class DBManager {
 		}
 	}
 
-	// public void update(StreamStatus streamStatus) {
-	// long sId = streamStatus.sId;
-	// String sName = streamStatus.sName;
-	// String sText = streamStatus.sText;
-	// double sLatitude = streamStatus.sLatitude;
-	// double sLongitude = streamStatus.sLongitude;
-	// java.sql.Time sTime = new java.sql.Time(streamStatus.sTime.getTime());
-	// java.sql.Date sDate = new java.sql.Date(streamStatus.sTime.getTime());
-	// try {
-	// stmt = conn.createStatement();
-	// PreparedStatement updateStatus = null;
-	// sql = "insert into status values(?,?,?,?,?,?,?)";
-	//
-	// try {
-	// updateStatus = conn.prepareStatement(sql);
-	// updateStatus.setLong(1, sId);
-	// updateStatus.setString(2, sName);
-	// updateStatus.setDouble(3, sLatitude);
-	// updateStatus.setDouble(4, sLongitude);
-	// updateStatus.setString(5, sText);
-	// updateStatus.setTime(6, sTime);
-	// updateStatus.setDate(7, sDate);
-	// // updateStatus.setdat
-	//
-	// updateStatus.executeUpdate();
-	// } catch (SQLException e) {
-	// // System.out.println(sId + "||" +sText);
-	// } finally {
-	// updateStatus.close();
-	// }
-	// } catch (SQLException e) {
-	// System.out.println("sql error");
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// public String queryNum() {
-	// String out = null;
-	// try {
-	// stmt = conn.createStatement();
-	// sql = "select count(*) as num from status ";
-	// rs = stmt.executeQuery(sql);
-	// while (rs.next()) {
-	// out = rs.getString("num") + "";
-	// // System.out.println(out);
-	// }
-	//
-	// } catch (SQLException e) {
-	// System.out.println("sql error");
-	// e.printStackTrace();
-	// }
-	// return out;
-	// }
-	//
-
-	//
-	// /*
-	// * insert text analyse into attitude table
-	// */
-	// public void insertAttitude(long sId, String polarity, String score) {
-	// java.util.Date dt = new java.util.Date();
-	// java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-	// "yyyy-MM-dd HH:mm:ss");
-	// String currentTime = sdf.format(dt);
-	// try {
-	// stmt = conn.createStatement();
-	// PreparedStatement updateStatus = null;
-	// sql = "insert into attitude values(?,?,?,?)";
-	//
-	// try {
-	// updateStatus = conn.prepareStatement(sql);
-	// updateStatus.setLong(1, sId);
-	// updateStatus.setString(2, polarity);
-	// updateStatus.setString(3, score);
-	// updateStatus.setString(4, currentTime);
-	//
-	// updateStatus.executeUpdate();
-	// } catch (SQLException e) {
-	// // System.out.println(sId + "||" +sText);
-	// } finally {
-	// updateStatus.close();
-	// }
-	// } catch (SQLException e) {
-	// System.out.println("sql error");
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// /*
-	// * get all from attitude table and output json
-	// */
-	// public String getJsonFromAttitudeByTime(String datetime) {
-	// JSONObject obj = new JSONObject();
-	// JSONArray jarray = new JSONArray();
-	// try {
-	// try {
-	// stmt = conn.createStatement();
-	// sql = "select * from attitude where insertDateTime like ?";
-	// PreparedStatement preparedStatement = conn
-	// .prepareStatement(sql);
-	// preparedStatement.setString(1, "%" + datetime + "%");
-	// System.out.println(preparedStatement);
-	// rs = preparedStatement.executeQuery();
-	// while (rs.next()) {
-	// String sid = rs.getString("sid");
-	// String polarity = rs.getString("polarity");
-	// String score = rs.getString("score");
-	// // String insertDateTime = rs.getString("insertDateTime");
-	// // System.out.println(sid + polarity + score);
-	// JSONObject ob = new JSONObject();
-	// ob.put("sid", sid);
-	// ob.put("polarity", polarity);
-	// ob.put("score", score);
-	// // ob.put("insertDateTime", insertDateTime);
-	// jarray.put(ob);
-	// }
-	//
-	// } catch (SQLException e) {
-	// System.out.println("sql error");
-	// e.printStackTrace();
-	// }
-	// obj.put("outcome", jarray);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return obj.toString();
-	// }
-
 	public int checkPassWorld(String name, String password, int flag) {
 		int num = 0;
 		try {
-			stmt = conn.createStatement();
 			sql = null;
 			if (flag == 0) {
 				sql = "select count(*) as num from user where uname = ? and upassword = ?";
@@ -223,7 +93,6 @@ public class DBManager {
 	public boolean isExistEmail(String email, int flag) {
 		int num = 0;
 		try {
-			stmt = conn.createStatement();
 			sql = null;
 			if (flag == 0) {
 				sql = "select count(*) as num from user where uemail = ?";
@@ -245,7 +114,6 @@ public class DBManager {
 	public boolean isExistUsername(String name, int flag) {
 		int num = 0;
 		try {
-			stmt = conn.createStatement();
 			sql = null;
 			if (flag == 0) {
 				sql = "select count(*) as num from user where uname = ?";
@@ -276,7 +144,6 @@ public class DBManager {
 			if (isExistEmail(uemail, 0))
 				return 2;
 			try {
-				stmt = conn.createStatement();
 				PreparedStatement updateStatus = null;
 				sql = "insert into user values(?,?,?,?,?,?,?,?)";
 				try {
@@ -308,7 +175,6 @@ public class DBManager {
 			if (isExistEmail(uemail, 1))
 				return 2;
 			try {
-				stmt = conn.createStatement();
 				PreparedStatement updateStatus = null;
 				sql = "insert into band values(?,?,?,?,?,?,?)";
 				try {
@@ -339,7 +205,6 @@ public class DBManager {
 	public String getProfile(String name, int flag) {
 		JSONObject out = new JSONObject();
 		try {
-			stmt = conn.createStatement();
 			sql = null;
 			if (flag == 0) {
 				sql = "select * from user where uname = ?";
@@ -386,7 +251,6 @@ public class DBManager {
 			String blastname, String bfirstname, String bbirthdate,
 			String bemail, String bwebsite) {
 		try {
-			stmt = conn.createStatement();
 			PreparedStatement updateStatus = null;
 			sql = "update band set bpassword = ?, blastname = ?, bfirstname = ?, bbirthdate = ?, bemail = ?, bwebsite = ? WHERE bname = ?";
 			try {
@@ -413,6 +277,140 @@ public class DBManager {
 		return 1;
 	}
 
+	public int addConcert(String cname, String bname, String cdatetime,
+			String cprice, String cwebsite, String vname, String uname,
+			String confirmed) {
+		
+		int maxCid = 1;
+		try {
+			sql = "SELECT IFNULL(MAX(cid)+1,1) FROM concert";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				maxCid = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert into concert values(?,?,?,?,?,?,?,?,?)";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setInt(1, maxCid);
+				updateStatus.setString(2, cname);
+				updateStatus.setString(3, bname);
+				updateStatus.setString(4, cdatetime);
+				updateStatus.setString(5, cprice);
+				updateStatus.setString(6, cwebsite);
+				updateStatus.setString(7, vname);
+				updateStatus.setString(8, uname);
+				updateStatus.setString(9, confirmed);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	public String getConcertByBandName(String bname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from concert where bname = ? and uname is null";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, bname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+
+	public String getConcertByUserName(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from concert where uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String getRatedConcertByUserName(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from concert c, rate r where r.uname = ? and c.cid = r.cid";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public static String getNow() {
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
@@ -420,6 +418,55 @@ public class DBManager {
 		return sdf.format(dt);
 	}
 
+	public int addRate(String uname, String cid, String rate, String review) {
+		//uname cid rate review 
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert into rate values(?,?,?,?)";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, cid);
+				updateStatus.setString(3, rate);
+				updateStatus.setString(4, review);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int updateUserScore(String uname, int uscore) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "update user set uscore = uscore + ? where uname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setInt(1, uscore);
+				updateStatus.setString(2, uname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
 	public static void main(String args[]) {
 		DBManager ma = new DBManager();
 		ma.getDirver();
@@ -435,10 +482,9 @@ public class DBManager {
 		// "", "", currentTime,
 		// "123@gmail.com", "", "", 1);
 		// System.out.print(out);
-
-		System.out.print(ma.updateBandProfile("YBand", "123",
-				"Y", "F", getNow(),
-				"123@yho.com", "www.sd.com"));
+		//ma.addConcert("cname","bname","2014-12-06 22:00:25","5","url","vname", null,"1");
+		//System.out.print(ma.addRate("zy123", "1", "3", "good"));
+		System.out.print(ma.getRatedConcertByUserName("zy123"));
 		ma.shutdown();
 	}
 }
