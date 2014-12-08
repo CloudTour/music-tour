@@ -117,7 +117,7 @@
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"> <i
 									class="glyphicon glyphicon-user red"></i>
-								</span> <input id="username-input" value="MBand" type="text"
+								</span> <input id="username-input"  type="text"
 									class="form-control" placeholder="Username">
 							</div>
 							<div class="clearfix"></div>
@@ -126,7 +126,7 @@
 							<div class="input-group input-group-lg">
 								<span class="input-group-addon"><i
 									class="glyphicon glyphicon-lock red"></i></span> <input type="password"
-									value="addd" id="password-input" class="form-control"
+									id="password-input" class="form-control"
 									placeholder="Password">
 							</div>
 							<div class="clearfix"></div>

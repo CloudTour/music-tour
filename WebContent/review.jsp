@@ -18,6 +18,9 @@
 	String dashboard = "user.jsp";
 	if (usertype.equals("1"))
 		dashboard = "singer.jsp";
+	String profile = "user-profile.jsp";
+	if (usertype.equals("1"))
+		dashboard = "singer-profile.jsp";
 %>
 
 <!DOCTYPE html>
@@ -339,7 +342,10 @@
 		}
 
 		function profile() {
-			window.location.href = "singer-profile.jsp";
+			if ($("#usertype").html() == "0")
+				window.location.href = "user-profile.jsp";
+			else
+				window.location.href = "singer-profile.jsp";
 		}
 		function logout() {
 			window.location.href = "index.jsp";

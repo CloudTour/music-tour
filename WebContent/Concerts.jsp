@@ -225,6 +225,8 @@
 									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
 									class="glyphicon glyphicon-star"></i><span> Bands</span></a></li>
+							<li><a class="ajax-link" href="follow-user.jsp"><i
+									class="glyphicon glyphicon-star"></i><span> Friends</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -266,6 +268,8 @@
 							</div>
 							<div class="box-content">
 								<!-- put your content here -->
+								<input id="search-input" type="text" placeholder="Search by Reivew">
+								<button onclick="search()">Search</button>
 								<table id="concert-table"
 									class="table table-striped table-bordered bootstrap-datatable datatable responsive">
 									<thead>
@@ -429,7 +433,7 @@
 		}
 
 		function profile() {
-			window.location.href = "singer-profile.jsp";
+			window.location.href = "user-profile.jsp";
 		}
 		function logout() {
 			window.location.href = "index.jsp";
@@ -508,6 +512,90 @@
 				alert(result.status);
 				init();
 			});
+		}
+		
+		function search() {
+			if ($("#search-input").val() == "") {
+				init();
+				return;
+			}
+			debugger;
+			var attends = [];
+			if ($("#usertype").html() == "0") {
+				$.ajax({
+					url : "GetConcertByAttend",
+					type : "POST",
+					async : false,
+					data : {
+						uname : $("#username").html(),
+					},
+					success : function(data) {
+						debugger;
+						var result = JSON.parse(data);
+						for (i = 0; i < result.length; ++i) {
+							attends.push(result[i].cid);
+						}
+					}
+				});
+
+			}
+
+			debugger;
+			var concerts = {};
+			$.ajax({
+				url : "GetConcertByReview",
+				type : "POST",
+				async : false,
+				data: {review: $("#search-input").val()},
+				success : function(data) {
+					debugger;
+					var result = JSON.parse(data);
+					for (i = 0; i < result.length; ++i) {
+						concerts[result[i].cid] = result[i];
+					}
+
+				}
+			})
+
+			debugger;
+			$("#concert-tbody tr").remove();
+			for (var i in concerts) {
+				if (concerts[i].cwebsite == null)
+					concerts[i].cwebsite = "";
+				var attendBtn = "";
+				if ($("#usertype").html() == '0' && attends.indexOf(i) == -1) {
+					attendBtn = ('<a class="btn btn-success" onclick="attend(\''
+							+ concerts[i].cid
+							+ '\')" href="#">'
+							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
+							+ 'Attend' + '</a>');
+				}
+				var row = '<tr>' + '<td>'
+						+ concerts[i].cname
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].bname
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cdatetime
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cprice
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cwebsite
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].vname
+						+ '</td>'
+						+ '<td class="center"> '
+						+ '<a class="btn btn-default" href="review.jsp?concertid='
+						+ concerts[i].cid
+						+ '">'
+						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
+						+ 'View' + '</a>' + attendBtn + '</td> ' + '</tr>';
+				$("#concert-tbody").append(row);
+			}
 		}
 
 		init();

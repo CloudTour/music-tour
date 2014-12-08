@@ -226,6 +226,8 @@
 									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
 									class="glyphicon glyphicon-star"></i><span> Bands</span></a></li>
+							<li><a class="ajax-link" href="follow-user.jsp"><i
+									class="glyphicon glyphicon-star"></i><span> Friends</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -430,7 +432,7 @@
 		}
 
 		function profile() {
-			window.location.href = "singer-profile.jsp";
+			window.location.href = "user-profile.jsp";
 		}
 		function logout() {
 			window.location.href = "index.jsp";
@@ -488,6 +490,7 @@
 					confirmed : "1",
 				}
 			}).done(function(data) {
+				debugger;
 				var result = JSON.parse(data);
 				alert(result.status);
 				$("#popup").fadeOut();

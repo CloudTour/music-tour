@@ -11,6 +11,16 @@
   </welcome-file-list>
   <servlet>
     <description></description>
+    <display-name>GetConcertByReview</display-name>
+    <servlet-name>GetConcertByReview</servlet-name>
+    <servlet-class>com.musictour.GetConcertByReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByReview</servlet-name>
+    <url-pattern>/GetConcertByReview</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>CheckPassword</display-name>
     <servlet-name>CheckPassword</servlet-name>
     <servlet-class>com.musictour.CheckPassword</servlet-class>
@@ -118,6 +128,16 @@
   <servlet-mapping>
     <servlet-name>GetBandByFan</servlet-name>
     <url-pattern>/GetBandByFan</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllUser</display-name>
+    <servlet-name>GetAllUser</servlet-name>
+    <servlet-class>com.musictour.GetAllUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllUser</servlet-name>
+    <url-pattern>/GetAllUser</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

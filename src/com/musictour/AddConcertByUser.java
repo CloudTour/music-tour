@@ -50,7 +50,9 @@ public class AddConcertByUser extends HttpServlet {
 		ma.connect();
 		int score = ma.getScoreByUser(uname);
 		if(score < 10) {
-			response.getWriter().write("not enough score");
+			JSONObject obj = new JSONObject();
+			obj.put("status", "not enough score.");
+			response.getWriter().write(obj.toJSONString());
 		} else {
 			int out = ma.addConcert(cname, bname, cdatetime,
 					cprice, cwebsite, vname, uname,

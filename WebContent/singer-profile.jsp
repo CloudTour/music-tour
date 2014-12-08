@@ -191,6 +191,26 @@
 								<div class="clearfix"></div>
 								<br>
 
+								<!-- password-->
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon"> <i
+										class="glyphicon glyphicon-user red"></i>
+									</span> <input id="password-input" type="password" class="form-control"
+										placeholder="Password">
+								</div>
+								<div class="clearfix"></div>
+								<br>
+
+								<!-- repeat password-->
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon"> <i
+										class="glyphicon glyphicon-user red"></i>
+									</span> <input id="repeat-password-input" type="password" class="form-control"
+										placeholder="Repeat Password">
+								</div>
+								<div class="clearfix"></div>
+								<br>
+
 								<!-- birthdate-->
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
@@ -477,13 +497,23 @@
 		}
 
 		function saveBasic() {
+			var password = $("#password").html();
+			if ($("#password-input").val() != $("#repeat-password-input").val()) {
+				alert("Passwords not match.");
+				$("#repeat-password-input").focus();
+				return;
+			}
+			
+			if ($("#password-input").val() != "") {
+				password = $("#password-input").val();
+			}
 			$.ajax({
 				url : "UpdateBandProfile",
 				type : "POST",
 				data : {
 					bname : $("#username").html(),
 					bemail : $("#email").html(),
-					bpassword : $("#password").html(),
+					bpassword : password,
 					bfirstname : $("#firstname-input").val(),
 					blastname : $("#lastname-input").val(),
 					bbirthdate : $("#birthdate-input").val(),

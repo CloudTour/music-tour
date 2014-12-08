@@ -42,7 +42,7 @@ public class AddFollow extends HttpServlet {
 		DBManager ma = new DBManager();
 		ma.getDirver();
 		ma.connect();
-		int out = ma.addFollow(user, user);
+		int out = ma.addFollow(user, follower);
 		ma.shutdown();
 		JSONObject obj = new JSONObject();
 		String info = null;

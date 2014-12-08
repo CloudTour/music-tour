@@ -39,7 +39,7 @@ public class UpdateUserProfile extends HttpServlet {
 		DBManager ma = new DBManager();
 		String uname = request.getParameter("uname");
 		String upassword = request.getParameter("upassword");
-		String  uscore = request.getParameter(" uscore");
+		String  uscore = request.getParameter("uscore");
 		String ulastname = request.getParameter("ulastname");
 		String ufirstname = request.getParameter("ufirstname");
 		String ubirthdate = request.getParameter("ubirthdate");

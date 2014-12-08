@@ -226,6 +226,8 @@
 									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
 									class="glyphicon glyphicon-star"></i><span> Bands</span></a></li>
+							<li><a class="ajax-link" href="follow-user.jsp"><i
+									class="glyphicon glyphicon-star"></i><span> Friends</span></a></li>
 						</ul>
 					</div>
 				</div>
