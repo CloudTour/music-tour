@@ -991,6 +991,86 @@ public class DBManager {
 		return array.toJSONString();
 	}
 
+	public String getUserType(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from usertype where uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", rs.getString("uname"));
+				obj.put("tname", rs.getString("tname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String getUserStype(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from usersubtype where uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("uname", rs.getString("uname"));
+				obj.put("stname", rs.getString("stname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+
+	public String getBandType(String bname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from bandtype where bname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, bname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("bname", rs.getString("bname"));
+				obj.put("tname", rs.getString("tname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public String getBandStype(String bname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select * from bandsubtype where bname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, bname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("bname", rs.getString("bname"));
+				obj.put("stname", rs.getString("stname"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public String getStypeByType(String tname) {
 		JSONArray array = new JSONArray();
 		try {

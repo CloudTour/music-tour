@@ -299,7 +299,6 @@
     <servlet-name>AddBandSubType</servlet-name>
     <url-pattern>/AddBandSubType</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>AddConcertByBand</display-name>
@@ -310,7 +309,6 @@
     <servlet-name>AddConcertByBand</servlet-name>
     <url-pattern>/AddConcertByBand</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>RateConcertByUser</display-name>
@@ -321,7 +319,6 @@
     <servlet-name>RateConcertByUser</servlet-name>
     <url-pattern>/RateConcertByUser</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>GetRatedConcertByUserName</display-name>
@@ -332,7 +329,6 @@
     <servlet-name>GetRatedConcertByUserName</servlet-name>
     <url-pattern>/GetRatedConcertByUserName</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>GetConcertByUserName</display-name>
@@ -343,7 +339,6 @@
     <servlet-name>GetConcertByUserName</servlet-name>
     <url-pattern>/GetConcertByUserName</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>AddConcertByUser</display-name>
@@ -354,7 +349,6 @@
     <servlet-name>AddConcertByUser</servlet-name>
     <url-pattern>/AddConcertByUser</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>GetConcertByBandName</display-name>
@@ -364,5 +358,45 @@
   <servlet-mapping>
     <servlet-name>GetConcertByBandName</servlet-name>
     <url-pattern>/GetConcertByBandName</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetUserType</display-name>
+    <servlet-name>GetUserType</servlet-name>
+    <servlet-class>com.musictour.GetUserType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserType</servlet-name>
+    <url-pattern>/GetUserType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetUserStype</display-name>
+    <servlet-name>GetUserStype</servlet-name>
+    <servlet-class>com.musictour.GetUserStype</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserStype</servlet-name>
+    <url-pattern>/GetUserStype</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetBandType</display-name>
+    <servlet-name>GetBandType</servlet-name>
+    <servlet-class>com.musictour.GetBandType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetBandType</servlet-name>
+    <url-pattern>/GetBandType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetBandStype</display-name>
+    <servlet-name>GetBandStype</servlet-name>
+    <servlet-class>com.musictour.GetBandStype</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetBandStype</servlet-name>
+    <url-pattern>/GetBandStype</url-pattern>
   </servlet-mapping>
 </web-app>
