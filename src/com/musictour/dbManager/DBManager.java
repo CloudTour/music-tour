@@ -312,7 +312,7 @@ public class DBManager {
 	public int addUserType(String uname, String tname) {
 		try {
 			PreparedStatement updateStatus = null;
-			sql = "insert usertype values  uname = ?,  tname = ?";
+			sql = "insert into usertype values(?,  ?)";
 			try {
 				updateStatus = conn.prepareStatement(sql);
 				updateStatus.setString(1, uname);
@@ -335,7 +335,7 @@ public class DBManager {
 	public int addUserSubType(String uname, String stname) {
 		try {
 			PreparedStatement updateStatus = null;
-			sql = "insert usersubtype values  uname = ?,  stname = ?";
+			sql = "insert into usersubtype values(?,  ?)";
 			try {
 				updateStatus = conn.prepareStatement(sql);
 				updateStatus.setString(1, uname);
@@ -358,7 +358,7 @@ public class DBManager {
 	public int addBandType(String bname, String tname) {
 		try {
 			PreparedStatement updateStatus = null;
-			sql = "insert usertype values  bname = ?,  tname = ?";
+			sql = "insert into bandtype values(?,?)";
 			try {
 				updateStatus = conn.prepareStatement(sql);
 				updateStatus.setString(1, bname);
@@ -381,7 +381,7 @@ public class DBManager {
 	public int addBandSubType(String bname, String stname) {
 		try {
 			PreparedStatement updateStatus = null;
-			sql = "insert usersubtype values  bname = ?,  stname = ?";
+			sql = "insert into bandsubtype values (?,  ?)";
 			try {
 				updateStatus = conn.prepareStatement(sql);
 				updateStatus.setString(1, bname);

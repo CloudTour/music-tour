@@ -90,8 +90,7 @@
 
 <body>
 	<p style="display: none" id="username"><%=username%></p>
-	<p style="display: none;" id="username"><%=username%></p>
-	<p style="display: none;" id="usertype"><%=usertype%></p>
+	<p style="display: none" id="usertype"><%=usertype%></p>
 	<p style="display: none" id="password"></p>
 	<p style="display: none" id="email"></p>
 	<!-- topbar starts -->
@@ -357,7 +356,6 @@
 					flag : "1",
 				}
 			}).done(function(data) {
-				debugger;
 				var result = JSON.parse(data);
 				$("#firstname-input").val(result.bfirstname);
 				$("#lastname-input").val(result.blastname);
@@ -371,7 +369,6 @@
 				url : "GetAllType",
 				type : "POST",
 			}).done(function(data) {
-				debugger;
 				var result = JSON.parse(data);
 				$("#type-select option").remove();
 				$("#type-select").append("<option>select type</option>");
@@ -382,35 +379,35 @@
 			});
 
 			$.ajax({
-				url : "",
+				url : "GetBandType",
 				type : "POST",
 				data: {
-					uname : $("#username").html(),
+					bname : $("#username").html(),
 				}
 			}).done(function(data) {
 				debugger;
 				var result = JSON.parse(data);
 				var type = "";
 				for (i = 0; i < result.length; ++i) {
-					type += result[i].tname;
+					type += result[i].tname + "; ";
 				}
-				$("#type-td").val(type);
+				$("#type-td").html(type);
 			});
 
 			$.ajax({
-				url : "",
+				url : "GetBandStype",
 				type : "POST",
 				data: {
-					uname : $("#username").html(),
+					bname : $("#username").html(),
 				}
 			}).done(function(data) {
 				debugger;
 				var result = JSON.parse(data);
 				var type = "";
 				for (i = 0; i < result.length; ++i) {
-					type += result[i].stname;
+					type += result[i].stname + "; ";
 				}
-				$("#subtype-td").val(type);
+				$("#subtype-td").html(type) ;
 			});
 
 		}
@@ -438,11 +435,12 @@
 		});
 		
 		function add() {
+			debugger;
 			$.ajax({
 				url : "AddBandType",
 				type : "POST",
 				data : {
-					bname : $("#username").val(),
+					bname : $("#username").html(),
 					tname: $("#type-select").val()
 				},
 				async: false,
@@ -455,7 +453,7 @@
 				url : "AddBandSubType",
 				type : "POST",
 				data : {
-					bname : $("#username").val(),
+					bname : $("#username").html(),
 					stname: $("#subtype-select").val()
 				},
 				async: false,
