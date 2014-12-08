@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%
 	if (session.getAttribute("username") == null) {
 		String username = request.getParameter("username");
@@ -88,98 +89,11 @@
 </head>
 
 <body>
-	<p style="display: none;" id="username"><%=username%></p>
-	<p style="display: none;" id="usertype"><%=usertype%></p>
-
-	<!-- Add Table -->
-	<div class="row" id="popup"
-		style="display: none; width: 100%; height: 100%; position: absolute; z-index: 100;">
-		<div class="well col-md-5 center login-box">
-			<form class="form-horizontal">
-				<fieldset>
-
-					<!-- concert name -->
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user red"></i>
-						</span> <input id="cname-input" type="text" class="form-control"
-							placeholder="Concert Name">
-					</div>
-					<div class="clearfix"></div>
-					<br>
-
-					<!-- band name -->
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user red"></i>
-						</span> <input id="bname-input" type="text" class="form-control"
-							placeholder="Band Name">
-					</div>
-					<div class="clearfix"></div>
-					<br>
-
-					<!-- datetime -->
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user red"></i>
-						</span> <input id="cdatetime-input" type="text" class="form-control"
-							placeholder="Datetime">
-					</div>
-					<div class="clearfix"></div>
-					<br>
-
-					<!-- price -->
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user red"></i>
-						</span> <input id="cprice-input" type="text" class="form-control"
-							placeholder="Price">
-					</div>
-					<div class="clearfix"></div>
-					<br>
-
-					<!-- website -->
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user red"></i>
-						</span> <input id="cwebsite-input" type="text" class="form-control"
-							placeholder="Website">
-					</div>
-					<div class="clearfix"></div>
-					<br>
-
-					<!-- Venue -->
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user red"></i>
-						</span> <input id="vname-input" type="text" class="form-control"
-							placeholder="Venue">
-					</div>
-					<div class="clearfix"></div>
-					<br>
-
-					<!-- Add button -->
-					<div style="float: left; width: 50%" class="input-group input-group-lg">
-						<p class="center col-md-10">
-							<button type="button" class="btn btn-primary" onclick="complete()">Complete</button>
-						</p>
-					</div>
-					<!-- Cancel button -->
-					<div style="float: right; width: 50%" class="input-group input-group-lg">
-						<p class="center col-md-10">
-							<button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
-						</p>
-					</div>
-
-				</fieldset>
-			</form>
-		</div>
-		<!--/span-->
-	</div>
-	<!--/row-->
-
-
-
+	<p style="display: none" id="username"><%=username%></p>
+	<p style="display: none" id="usertype"><%=usertype%></p>
+	<p style="display: none" id="password"></p>
+	<p style="display: none" id="score"></p>
+	<p style="display: none" id="email"></p>
 	<!-- topbar starts -->
 	<div class="navbar navbar-default" role="navigation">
 
@@ -217,15 +131,15 @@
 							<li><a class="ajax-link" href="user.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<li><a class="ajax-link" href="Concerts.jsp"><i
-									class="glyphicon glyphicon-music"></i><span> Concerts</span></a></li>
+									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
 							<li><a class="ajax-link" href="MyPost.jsp"><i
-									class="glyphicon glyphicon-user"></i><span> MyPost</span></a></li>
+									class="glyphicon glyphicon-home"></i><span> MyPost</span></a></li>
 							<li><a class="ajax-link" href="attend.jsp"><i
-									class="glyphicon glyphicon-heart"></i><span> Attend</span></a></li>
+									class="glyphicon glyphicon-home"></i><span> Attend</span></a></li>
 							<li><a class="ajax-link" href="recommend.jsp"><i
-									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
+									class="glyphicon glyphicon-home"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
-									class="glyphicon glyphicon-star"></i><span> Bands</span></a></li>
+									class="glyphicon glyphicon-home"></i><span> Bands</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -251,44 +165,119 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Profile</a></li>
 					</ul>
 				</div>
 
-				<!-- Concerts added by user -->
+
 				<div class="row">
 					<div class="box col-md-12">
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Concerts by My Favorite Bands
+									<i class="glyphicon glyphicon-star-empty"></i> Profile Settings
 								</h2>
 
 							</div>
 							<div class="box-content">
 								<!-- put your content here -->
-								<table id="concert-table"
-									class="table table-striped table-bordered bootstrap-datatable datatable responsive">
-									<thead>
+
+								<!-- first name-->
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon"> <i
+										class="glyphicon glyphicon-user red"></i>
+									</span> <input id="firstname-input" type="text" class="form-control"
+										placeholder="First Name">
+								</div>
+								<div class="clearfix"></div>
+								<br>
+
+								<!-- last name-->
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon"> <i
+										class="glyphicon glyphicon-user red"></i>
+									</span> <input id="lastname-input" type="text" class="form-control"
+										placeholder="Last Name">
+								</div>
+								<div class="clearfix"></div>
+								<br>
+
+								<!-- birthdate-->
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon"> <i
+										class="glyphicon glyphicon-calendar red"></i>
+									</span> <input id="birthdate-input" type="text" class="form-control"
+										placeholder="Birthdate">
+								</div>
+								<div class="clearfix"></div>
+								<br>
+
+								<!-- City-->
+								<div class="input-group input-group-lg">
+									<span class="input-group-addon"> <i
+										class="glyphicon glyphicon-home red"></i>
+									</span> <input id="city-input" type="text" class="form-control"
+										placeholder="City">
+								</div>
+								<div class="clearfix"></div>
+								<br>
+
+								<div class="input-group input-group-lg" style="float: right">
+									<p class="center col-md-10">
+										<button type="button" class="btn btn-success" onclick="saveBasic()">Save</button>
+									</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/row-->
+				<div class="row">
+					<div class="box col-md-12">
+						<div class="box-inner">
+							<div class="box-header well" data-original-title="">
+								<h2>
+									<i class="glyphicon glyphicon-star-empty"></i> Genres Settings
+								</h2>
+
+							</div>
+							<div class="box-content">
+								<!-- put your content here -->
+								<div class="row">
+									<table style="width: 100%">
 										<tr>
-											<th>Name</th>
-											<th>Band</th>
-											<th>Date</th>
-											<th>Price</th>
-											<th>Website</th>
-											<th>Venue</th>
-											<th>Active</th>
+											<td style="width: 20%"><select id="type-select"
+												class="form-control">
+											</select></td>
+											<td style="width: 20%"><select id="subtype-select"
+												class="form-control">
+											</select></td>
+											<td style="width: 10%">
+												<button class="form-control" onclick="add()">Add</button>
+											</td>
+											<td style="width: 70%"></td>
 										</tr>
-									</thead>
-									<tbody id="concert-tbody">
-									</tbody>
-								</table>
+									</table>
+									<table>
+										<tr>
+											<td>Type</td>
+											<td id="type-td"></td>
+										</tr>
+										<tr>
+											<td>SubType</td>
+											<td id="subtype-td"></td>
+										</tr>
+
+									</table>
+								</div>
 
 							</div>
 						</div>
 					</div>
 				</div>
 				<!--/row-->
+
 				<!-- content ends -->
 			</div>
 			<!--/#content.col-md-0-->
@@ -297,6 +286,26 @@
 
 
 		<hr>
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+						<h3>Settings</h3>
+					</div>
+					<div class="modal-body">
+						<p>Here settings can be configured...</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-default" data-dismiss="modal">Close</a> <a
+							href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<footer class="row">
 			<p class="col-md-9 col-sm-9 col-xs-12 copyright">
@@ -347,84 +356,157 @@
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
-	<!-- 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script> -->
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script>
+		var types = [];
+		var subtypes = [];
 		function init() {
-			debugger;
-			var attends = [];
 			$.ajax({
-				url : "GetConcertByAttend",
+				url : "GetProfile",
 				type : "POST",
-				async : false,
 				data : {
-					uname : $("#username").html(),
-				},
-				success : function(data) {
-					debugger;
-					var result = JSON.parse(data);
-					for (i = 0; i < result.length; ++i) {
-						attends.push(result[i].cid);
-					}
+					username : $("#username").html(),
+					flag : "0",
+				}
+			}).done(function(data) {
+				var result = JSON.parse(data);
+				$("#firstname-input").val(result.ufirstname);
+				$("#lastname-input").val(result.ulastname);
+				$("#birthdate-input").val(result.ubirthdate);
+				$("#city-input").val(result.ucity);
+				$("#email").html(result.uemail);
+				$("#password").html(result.upassword);
+				$("#score").html(result.upassword);
+			});
+
+			$.ajax({
+				url : "GetAllType",
+				type : "POST",
+			}).done(function(data) {
+				var result = JSON.parse(data);
+				$("#type-select option").remove();
+				$("#type-select").append("<option>select type</option>");
+				for (i = 0; i < result.length; ++i) {
+					var option = "<option>" + result[i].tname + "</option>"
+					$("#type-select").append(option);
 				}
 			});
 
-			var concerts = {};
 			$.ajax({
-				url : "GetConcertByFan",
+				url : "GetUserType",
 				type : "POST",
-				async : false,
 				data : {
 					uname : $("#username").html(),
-				},
-				success : function(data) {
-					debugger;
-					var result = JSON.parse(data);
-					for (i = 0; i < result.length; ++i) {
-						concerts[result[i].cid] = result[i];
-					}
-
 				}
-			})
+			}).done(function(data) {
+				debugger;
+				types = [];
+				var result = JSON.parse(data);
+				var type = "";
+				for (i = 0; i < result.length; ++i) {
+					type += result[i].tname + "; ";
+					types.push(result[i].tname);
+				}
+				$("#type-td").html(type);
+			});
 
+			$.ajax({
+				url : "GetUserStype",
+				type : "POST",
+				data : {
+					uname : $("#username").html(),
+				}
+			}).done(function(data) {
+				debugger;
+				subtypes = [];
+				var result = JSON.parse(data);
+				var type = "";
+				for (i = 0; i < result.length; ++i) {
+					type += result[i].stname + "; ";
+					subtypes.push(result[i].stname);
+				}
+				$("#subtype-td").html(type);
+			});
+
+		}
+
+		$("#type-select").change(function() {
 			debugger;
-			$("#concert-tbody tr").remove();
-			for ( var i in concerts) {
-				if (concerts[i].cwebsite == null)
-					concerts[i].cwebsite = "";
-				var attendBtn = "";
-				if ($("#usertype").html() == '0' && attends.indexOf(i) == -1) {
-					attendBtn = ('<a class="btn btn-success" onclick="attend(\''
-							+ concerts[i].cid
-							+ '\')" href="#">'
-							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
-							+ 'Attend' + '</a>');
+			if ($("#type-select").prop("selectedIndex") == 0)
+				return;
+			$.ajax({
+				url : "GetStypeByType",
+				type : "POST",
+				data : {
+					tname : $("#type-select").val(),
 				}
-				var row = '<tr>' + '<td>'
-						+ concerts[i].cname
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].bname
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].cdatetime
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].cprice
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].cwebsite
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].vname
-						+ '</td>'
-						+ '<td class="center"> '
-						+ '<a class="btn btn-default" href="review.jsp?concertid='
-						+ concerts[i].cid
-						+ '">'
-						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
-						+ 'View' + '</a>' + attendBtn + '</td> ' + '</tr>';
-				$("#concert-tbody").append(row);
+			}).done(function(data) {
+				debugger;
+				var result = JSON.parse(data);
+				$("#subtype-select option").remove();
+				$("#subtype-select").append("<option>select subtype</option>");
+				for (i = 0; i < result.length; ++i) {
+					var option = "<option>" + result[i].stname + "</option>"
+					$("#subtype-select").append(option);
+				}
+			});
+		});
+
+		function add() {
+			debugger;
+			if ($("#type-select").prop("selectedIndex") != 0
+					&& types.indexOf($("#type-select").val()) == -1) {
+				$.ajax({
+					url : "AddUserType",
+					type : "POST",
+					data : {
+						uname : $("#username").html(),
+						tname : $("#type-select").val()
+					},
+					async : false,
+					success : function() {
+
+					}
+				});
+
 			}
+			if ($("#subtype-select").prop("selectedIndex") != 0
+					&& subtypes.indexOf($("#subtype-select").val()) == -1) {
+				$.ajax({
+					url : "AddUserSubType",
+					type : "POST",
+					data : {
+						uname : $("#username").html(),
+						stname : $("#subtype-select").val()
+					},
+					async : false,
+					success : function() {
+
+					}
+				});
+			}
+			init();
+		}
+
+		function saveBasic() {
+			$.ajax({
+				url : "UpdateUserProfile",
+				type : "POST",
+				data : {
+					uname : $("#username").html(),
+					uemail : $("#email").html(),
+					uemail : $("#score").html(),
+					upassword : $("#password").html(),
+					ufirstname : $("#firstname-input").val(),
+					ulastname : $("#lastname-input").val(),
+					ubirthdate : $("#birthdate-input").val(),
+					ucity: $("#city-input").val(),
+					flag : "0",
+				}
+			}).done(function(data) {
+				var result = JSON.parse(data);
+				alert(result.status);
+			});
 		}
 
 		function profile() {
@@ -432,82 +514,6 @@
 		}
 		function logout() {
 			window.location.href = "index.jsp";
-		}
-
-		function showWin() {
-			var winNode = $("#popup");
-			winNode.fadeIn("slow");
-		}
-
-		function cancel() {
-			var winNode = $("#popup");
-			winNode.fadeOut();
-		}
-
-		function complete() {
-			debugger;
-			if ($("#cname-input").val() == "") {
-				alert("Concert name cannot be empty.");
-				$("#cname-input").focus();
-				return;
-			}
-			if ($("#bname-input").val() == "") {
-				alert("Band name cannot be empty.");
-				$("#bname-input").focus();
-				return;
-			}
-			if ($("#cdatetime-input").val() == "") {
-				alert("Time cannot be empty.");
-				$("#cdatetime-input").focus();
-				return;
-			}
-			if ($("#cprice-input").val() == "") {
-				alert("Price cannot be empty.");
-				$("#cprice-input").focus();
-				return;
-			}
-			if ($("#vname-input").val() == "") {
-				alert("Venue cannot be empty.");
-				$("#vname-input").focus();
-				return;
-			}
-
-			$.ajax({
-				url : "AddConcertByUser",
-				type : "POST",
-				data : {
-					cname : $("#cname-input").val(),
-					bname : $("#bname-input").val(),
-					cdatetime : $("#cdatetime-input").val(),
-					cprice : $("#cprice-input").val(),
-					cwebsite : $("cwebsite-input").val(),
-					vname : $("#vname-input").val(),
-					uname : $("#username").html(),
-					confirmed : "1",
-				}
-			}).done(function(data) {
-				var result = JSON.parse(data);
-				alert(result.status);
-				$("#popup").fadeOut();
-				init();
-			});
-		}
-
-		function attend(cid) {
-			debugger;
-			$.ajax({
-				url : "AddAttend",
-				type : "POST",
-				data : {
-					cid : cid,
-					uname : $("#username").html(),
-					attended : '0'
-				}
-			}).done(function(data) {
-				var result = JSON.parse(data);
-				alert(result.status);
-				init();
-			});
 		}
 
 		init();

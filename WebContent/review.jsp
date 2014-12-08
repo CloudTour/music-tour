@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-/* 	if (session.getAttribute("username") == null) {
-		String username = request.getParameter("username");
-		session.setAttribute("username", username);
-	}
+	/* 	if (session.getAttribute("username") == null) {
+	 String username = request.getParameter("username");
+	 session.setAttribute("username", username);
+	 }
 
-	if (session.getAttribute("usertype") == null) {
-		String usertype = request.getParameter("type");
-		session.setAttribute("usertype", usertype);
-	} */
+	 if (session.getAttribute("usertype") == null) {
+	 String usertype = request.getParameter("type");
+	 session.setAttribute("usertype", usertype);
+	 } */
 
 	String concertid = request.getParameter("concertid");
 
@@ -180,7 +180,7 @@
 						<div class="nav-sm nav nav-stacked"></div>
 						<ul class="nav nav-pills nav-stacked main-menu">
 							<li class="nav-header">Main</li>
-							<li><a class="ajax-link" href=<%=dashboard %>><i
+							<li><a class="ajax-link" href=<%=dashboard%>><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 						</ul>
 					</div>
@@ -217,7 +217,7 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Concerts
+									<i class="glyphicon glyphicon-star-empty"></i> Reviews
 								</h2>
 
 							</div>
@@ -312,31 +312,30 @@
 			if ($("#usertype").html() == "1") {
 				$("#add-btn").hide();
 			}
-			
-			
+
 			$.ajax({
 				url : "GetRateByConcert",
 				type : "POST",
+				async : false,
 				data : {
 					cid : $("#concertid").html()
-				}
-			}).done(
-					function(data) {
-						var result = JSON.parse(data);
-						if ($("#review-tbody tr").length > 0)
-							$("#review-tbody tr").remove();
-						for (var i = 0; i < result.length; ++i) {
-							if (result[i].cwebsite == null)
-								result[i].cwebsite = "";
-							var row = '<tr>' + '<td>' + result[i].uname
-									+ '</td>' + '<td class="center">'
-									+ result[i].rate + '</td>'
-									+ '<td class="center">' + result[i].review
-									+ '</td>' + '</tr>';
-							$("#review-tbody").append(row);
-						}
+				},
+				success : function(data) {
+					var result = JSON.parse(data);
+					if ($("#review-tbody tr").length > 0)
+						$("#review-tbody tr").remove();
+					for (var i = 0; i < result.length; ++i) {
+						if (result[i].cwebsite == null)
+							result[i].cwebsite = "";
+						var row = '<tr>' + '<td>' + result[i].uname + '</td>'
+								+ '<td class="center">' + result[i].rate
+								+ '</td>' + '<td class="center">'
+								+ result[i].review + '</td>' + '</tr>';
+						$("#review-tbody").append(row);
+					}
 
-					});
+				}
+			})
 		}
 
 		function profile() {

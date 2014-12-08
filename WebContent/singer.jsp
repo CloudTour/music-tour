@@ -13,7 +13,6 @@
 	String username = (String) session.getAttribute("username");
 	String usertype = (String) session.getAttribute("usertype");
 	System.out.println(usertype);
-
 %>
 
 <!DOCTYPE html>
@@ -229,7 +228,7 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Blank</a></li>
+						<li><a href="#">Dashboard</a></li>
 					</ul>
 				</div>
 
@@ -238,7 +237,7 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Blank
+									<i class="glyphicon glyphicon-star-empty"></i> Concerts
 								</h2>
 
 								<div class="box-icon">
@@ -312,7 +311,8 @@
 			</p>
 
 			<p class="col-md-3 col-sm-3 col-xs-12 powered-by">
-				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music Tour</a>
+				Powered by: <a href="http://usman.it/free-responsive-admin-template">Music
+					Tour</a>
 			</p>
 		</footer>
 
@@ -355,52 +355,52 @@
 	<script src="js/charisma.js"></script>
 	<!-- 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script> -->
 	<script>
-		$(document).ready(function() {
-			$('#concert-table').DataTable();
-		});
 		function init() {
-			$
-					.ajax({
-						url : "GetConcertByBandName",
-						type : "POST",
-						data : {
-							bname : $("#username").html(),
-						}
-					})
-					.done(
-							function(data) {
-								var result = JSON.parse(data);
-								if ($("#concert-tbody tr").length > 0)
-									$("#concert-tbody tr").remove();
-								for (var i = 0; i < result.length; ++i) {
-									if (result[i].cwebsite == null)
-										result[i].cwebsite = "";
-									var row = '<tr>' + '<td>'
-											+ result[i].cname
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].cdatetime
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].cprice
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].cwebsite
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].vname
-											+ '</td>'
-											+ '<td class="center"> '
-											+ '<a class="btn btn-success" href="review.jsp?concertid='
-											+ result[i].cid
-											+ '">'
-											+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
-											+ 'View' + '</a>' + '</td> '
-											+ '</tr>';
-									$("#concert-tbody").append(row);
-								}
-
-							});
+			var concerts = {};
+			$.ajax({
+				url : "GetConcertByBandName",
+				type : "POST",
+				async : false,
+				data : {
+					bname : $("#username").html(),
+				},
+				success : function(data) {
+					debugger;
+					var result = JSON.parse(data);
+					for (i = 0; i < result.length; ++i) {
+						concerts[result[i].cid] = result[i];
+					}
+				}
+			})
+			
+			debugger;
+			$("#concert-tbody tr").remove();
+			for ( var i in concerts) {
+				if (concerts[i].cwebsite == null)
+					concerts[i].cwebsite = "";
+				var row = '<tr>' + '<td>'
+						+ concerts[i].cname
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cdatetime
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cprice
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cwebsite
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].vname
+						+ '</td>'
+						+ '<td class="center"> '
+						+ '<a class="btn btn-default" href="review.jsp?concertid='
+						+ concerts[i].cid
+						+ '">'
+						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
+						+ 'View' + '</a>' + '</td> ' + '</tr>';
+				$("#concert-tbody").append(row);
+			}
 		}
 
 		function profile() {

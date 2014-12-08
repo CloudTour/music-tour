@@ -89,6 +89,7 @@
 
 <body>
 	<p style="display: none;" id="username"><%=username%></p>
+		<p style="display: none;" id="usertype"><%=usertype%></p>
 
 	<!-- Add Table -->
 	<div class="row" id="popup"
@@ -216,9 +217,15 @@
 							<li><a class="ajax-link" href="user.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<li><a class="ajax-link" href="Concerts.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
+									class="glyphicon glyphicon-music"></i><span> Concerts</span></a></li>
+							<li><a class="ajax-link" href="MyPost.jsp"><i
+									class="glyphicon glyphicon-user"></i><span> MyPost</span></a></li>
+							<li><a class="ajax-link" href="attend.jsp"><i
+									class="glyphicon glyphicon-heart"></i><span> Attend</span></a></li>
+							<li><a class="ajax-link" href="recommend.jsp"><i
+									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Bands</span></a></li>
+									class="glyphicon glyphicon-star"></i><span> Bands</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -244,7 +251,7 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Bands</a></li>
 					</ul>
 				</div>
 
@@ -254,7 +261,7 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Concerts
+									<i class="glyphicon glyphicon-star-empty"></i> Bands
 								</h2>
 
 							</div>
@@ -339,9 +346,9 @@
 	<script src="js/charisma.js"></script>
 	<!-- 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script> -->
 	<script>
-		$(document).ready(function() {
+/* 		$(document).ready(function() {
 			$('#concert-table').DataTable();
-		});
+		}); */
 		function init() {
 			debugger;
 			var bands = {};
@@ -380,16 +387,18 @@
 				var btnRow = "";
 				if (bands[bname].follow == true) {
 					btnRow = '<td class="center" > '
-							+ '<a class="btn btn-danger" onclick="unfollow(\'' + bands[bname].bname + '\')" href="#">'
+							+ '<a class="btn btn-danger" onclick="unfollow(\''
+							+ bands[bname].bname
+							+ '\')" href="#">'
 							+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
 							+ 'Unfollow' + '</a>' + '</td> ';
 				} else {
 					continue;
 				}
-				var row = '<tr >' + '<td class="bname">' + bands[bname].bname + '</td>'
-						+ '<td class="center">' + bands[bname].bemail + '</td>'
-						+ '<td class="center">' + bands[bname].bwebsite + '</td>'
-						+ btnRow;
+				var row = '<tr >' + '<td class="bname">' + bands[bname].bname
+						+ '</td>' + '<td class="center">' + bands[bname].bemail
+						+ '</td>' + '<td class="center">'
+						+ bands[bname].bwebsite + '</td>' + btnRow;
 				+'</tr>';
 				$("#band-tbody").append(row);
 			}
@@ -399,15 +408,17 @@
 					continue;
 				} else {
 					btnRow = '<td class="center" > '
-							+ '<a class="btn btn-success" onclick="follow(\'' + bands[bname].bname + '\')" href="#">'
+							+ '<a class="btn btn-success" onclick="follow(\''
+							+ bands[bname].bname
+							+ '\')" href="#">'
 							+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
 							+ 'Follow' + '</a>' + '</td> ';
 
 				}
-				var row = '<tr>' + '<td class="bname">' + bands[bname].bname + '</td>'
-						+ '<td class="center">' + bands[bname].bemail + '</td>'
-						+ '<td class="center">' + bands[bname].bwebsite + '</td>'
-						+ btnRow;
+				var row = '<tr>' + '<td class="bname">' + bands[bname].bname
+						+ '</td>' + '<td class="center">' + bands[bname].bemail
+						+ '</td>' + '<td class="center">'
+						+ bands[bname].bwebsite + '</td>' + btnRow;
 				+'</tr>';
 				$("#band-tbody").append(row);
 			}
@@ -481,7 +492,7 @@
 
 		function follow(bname) {
 			debugger;
-			
+
 			$.ajax({
 				url : "AddFan",
 				type : "POST",
@@ -493,12 +504,12 @@
 				var result = JSON.parse(data);
 				alert(result.status);
 				init();
-			}); 
+			});
 		}
 
 		function unfollow(bname) {
 			debugger;
-			
+
 			$.ajax({
 				url : "DeleteFan",
 				type : "POST",
@@ -510,7 +521,7 @@
 				var result = JSON.parse(data);
 				alert(result.status);
 				init();
-			}); 
+			});
 		}
 
 		init();

@@ -347,6 +347,8 @@
 	<script src="js/charisma.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script>
+		var types = [];
+		var subtypes = [];
 		function init() {
 			$.ajax({
 				url : "GetProfile",
@@ -381,15 +383,17 @@
 			$.ajax({
 				url : "GetBandType",
 				type : "POST",
-				data: {
+				data : {
 					bname : $("#username").html(),
 				}
 			}).done(function(data) {
 				debugger;
+				types = [];
 				var result = JSON.parse(data);
 				var type = "";
 				for (i = 0; i < result.length; ++i) {
 					type += result[i].tname + "; ";
+					types.push(result[i].tname);
 				}
 				$("#type-td").html(type);
 			});
@@ -397,17 +401,19 @@
 			$.ajax({
 				url : "GetBandStype",
 				type : "POST",
-				data: {
+				data : {
 					bname : $("#username").html(),
 				}
 			}).done(function(data) {
 				debugger;
+				subtypes = [];
 				var result = JSON.parse(data);
 				var type = "";
 				for (i = 0; i < result.length; ++i) {
 					type += result[i].stname + "; ";
+					subtypes.push(result[i].stname);
 				}
-				$("#subtype-td").html(type) ;
+				$("#subtype-td").html(type);
 			});
 
 		}
@@ -433,35 +439,40 @@
 				}
 			});
 		});
-		
+
 		function add() {
 			debugger;
-			$.ajax({
-				url : "AddBandType",
-				type : "POST",
-				data : {
-					bname : $("#username").html(),
-					tname: $("#type-select").val()
-				},
-				async: false,
-				success: function () {
-					
-				}
-			});	
+			if ($("#type-select").prop("selectedIndex") != 0
+					&& types.indexOf($("#type-select").val()) == -1) {
+				$.ajax({
+					url : "AddBandType",
+					type : "POST",
+					data : {
+						bname : $("#username").html(),
+						tname : $("#type-select").val()
+					},
+					async : false,
+					success : function() {
 
-			$.ajax({
-				url : "AddBandSubType",
-				type : "POST",
-				data : {
-					bname : $("#username").html(),
-					stname: $("#subtype-select").val()
-				},
-				async: false,
-				success: function () {
-					
-				}
-			});	
-			
+					}
+				});
+
+			}
+			if ($("#subtype-select").prop("selectedIndex") != 0
+					&& subtypes.indexOf($("#subtype-select").val()) == -1) {
+				$.ajax({
+					url : "AddBandSubType",
+					type : "POST",
+					data : {
+						bname : $("#username").html(),
+						stname : $("#subtype-select").val()
+					},
+					async : false,
+					success : function() {
+
+					}
+				});
+			}
 			init();
 		}
 

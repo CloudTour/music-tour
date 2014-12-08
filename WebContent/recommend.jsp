@@ -217,15 +217,15 @@
 							<li><a class="ajax-link" href="user.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<li><a class="ajax-link" href="Concerts.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
+									class="glyphicon glyphicon-music"></i><span> Concerts</span></a></li>
 							<li><a class="ajax-link" href="MyPost.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> MyPost</span></a></li>
+									class="glyphicon glyphicon-user"></i><span> MyPost</span></a></li>
 							<li><a class="ajax-link" href="attend.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Attend</span></a></li>
+									class="glyphicon glyphicon-heart"></i><span> Attend</span></a></li>
 							<li><a class="ajax-link" href="recommend.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Recommend</span></a></li>
+									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Bands</span></a></li>
+									class="glyphicon glyphicon-star"></i><span> Bands</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -251,7 +251,7 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Recommend</a></li>
 					</ul>
 				</div>
 
@@ -349,84 +349,82 @@
 	<script src="js/charisma.js"></script>
 	<!-- 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script> -->
 	<script>
-		$(document).ready(function() {
-			$('#concert-table').DataTable();
-		});
 		function init() {
 			debugger;
-			var attends = {};
+			var attends = [];
 			$.ajax({
 				url : "GetConcertByAttend",
 				type : "POST",
+				async : false,
 				data : {
 					uname : $("#username").html(),
 				},
-				asyc : false,
 				success : function(data) {
 					debugger;
 					var result = JSON.parse(data);
 					for (i = 0; i < result.length; ++i) {
-						attends[result[i].cid] = true;
+						attends.push(result[i].cid);
 					}
 				}
 			});
-			$.ajax({
-						url : "RecommendConcertByFan",
-						type : "POST",
-						data : {
-							uname : $("#username").html(),
-						}
-					})
-					.done(
-							function(data) {
-								debugger;
-								var result = JSON.parse(data);
-								if ($("#concert-tbody tr").length > 0)
-									$("#concert-tbody tr").remove();
-								for (var i = 0; i < result.length; ++i) {
-									if (result[i].cwebsite == null)
-										result[i].cwebsite = "";
-									var attendBtn = "";
-									if (!(result[i].cid in attends)) {
-										attendBtn = ('<a class="btn btn-success" onclick="attend(\''
-												+ result[i].cid
-												+ '\')" href="#">'
-												+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
-												+ 'Attend' + '</a>');
-									}
-									var row = '<tr>'
-											+ '<td>'
-											+ result[i].cname
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].bname
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].cdatetime
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].cprice
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].cwebsite
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].vname
-											+ '</td>'
-											+ '<td class="center" > '
-											+ '<a class="btn btn-default" href="review.jsp?concertid='
-											+ result[i].cid
-											+ '">'
-											+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
-											+ 'View'
-											+ '</a>'
-											+ attendBtn
-											+ '</td> '
-											+ '</tr>';
-									$("#concert-tbody").append(row);
-								}
 
-							});
+			var concerts = {};
+			$.ajax({
+				url : "RecommendConcertByFan",
+				type : "POST",
+				async : false,
+				data : {
+					uname : $("#username").html(),
+				},
+				success : function(data) {
+					debugger;
+					var result = JSON.parse(data);
+					for (i = 0; i < result.length; ++i) {
+						concerts[result[i].cid] = result[i];
+					}
+
+				}
+			})
+			
+			debugger;
+			$("#concert-tbody tr").remove();
+			for (var i in concerts) {
+				if (concerts[i].cwebsite == null)
+					concerts[i].cwebsite = "";
+				var attendBtn = "";
+				if ($("#usertype").html() == '0' && attends.indexOf(i) == -1) {
+					attendBtn = ('<a class="btn btn-success" onclick="attend(\''
+							+ concerts[i].cid
+							+ '\')" href="#">'
+							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
+							+ 'Attend' + '</a>');
+				}
+				var row = '<tr>' + '<td>'
+						+ concerts[i].cname
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].bname
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cdatetime
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cprice
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].cwebsite
+						+ '</td>'
+						+ '<td class="center">'
+						+ concerts[i].vname
+						+ '</td>'
+						+ '<td class="center"> '
+						+ '<a class="btn btn-default" href="review.jsp?concertid='
+						+ concerts[i].cid
+						+ '">'
+						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
+						+ 'View' + '</a>' + attendBtn + '</td> ' + '</tr>';
+				$("#concert-tbody").append(row);
+			}
 		}
 
 		function profile() {
@@ -500,9 +498,9 @@
 				url : "AddAttend",
 				type : "POST",
 				data : {
-					cid: cid,
+					cid : cid,
 					uname : $("#username").html(),
-					attended:'0'
+					attended : '0'
 				}
 			}).done(function(data) {
 				var result = JSON.parse(data);
@@ -510,7 +508,6 @@
 				init();
 			});
 		}
-
 
 		init();
 	</script>
