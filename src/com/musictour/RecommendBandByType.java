@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.musictour.dbManager.DBManager;
 
 /**
- * Servlet implementation class GetBandByFan
+ * Servlet implementation class RecommendBandByType
  */
-public class GetBandByFan extends HttpServlet {
+public class RecommendBandByType extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetBandByFan() {
+    public RecommendBandByType() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class GetBandByFan extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -36,10 +36,9 @@ public class GetBandByFan extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBManager ma = new DBManager();
 		String uname = request.getParameter("uname");
-		
 		ma.getDirver();
 		ma.connect();
-		String out = ma.getBandByFan(uname);
+		String out = ma.recommendBandByType(uname);
 		ma.shutdown();
 		response.getWriter().write(out);
 	}

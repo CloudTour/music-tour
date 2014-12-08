@@ -129,7 +129,86 @@
     <servlet-name>GetAllBand</servlet-name>
     <url-pattern>/GetAllBand</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>AddFollow</display-name>
+    <servlet-name>AddFollow</servlet-name>
+    <servlet-class>com.musictour.AddFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddFollow</servlet-name>
+    <url-pattern>/AddFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteFollow</display-name>
+    <servlet-name>DeleteFollow</servlet-name>
+    <servlet-class>com.musictour.dbManager.DeleteFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteFollow</servlet-name>
+    <url-pattern>/DeleteFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetFollowerByFollow</display-name>
+    <servlet-name>GetFollowerByFollow</servlet-name>
+    <servlet-class>com.musictour.GetFollowerByFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetFollowerByFollow</servlet-name>
+    <url-pattern>/GetFollowerByFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetFollowingByFollow</display-name>
+    <servlet-name>GetFollowingByFollow</servlet-name>
+    <servlet-class>com.musictour.GetFollowingByFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetFollowingByFollow</servlet-name>
+    <url-pattern>/GetFollowingByFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecommendConcertByFan</display-name>
+    <servlet-name>RecommendConcertByFan</servlet-name>
+    <servlet-class>com.musictour.RecommendConcertByFan</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecommendConcertByFan</servlet-name>
+    <url-pattern>/RecommendConcertByFan</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecommendBandByType</display-name>
+    <servlet-name>RecommendBandByType</servlet-name>
+    <servlet-class>com.musictour.RecommendBandByType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecommendBandByType</servlet-name>
+    <url-pattern>/RecommendBandByType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetType</display-name>
+    <servlet-name>GetType</servlet-name>
+    <servlet-class>com.musictour.GetType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetType</servlet-name>
+    <url-pattern>/GetType</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetStypeByType</display-name>
+    <servlet-name>GetStypeByType</servlet-name>
+    <servlet-class>com.musictour.GetStypeByType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetStypeByType</servlet-name>
+    <url-pattern>/GetStypeByType</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>AddConcertByBand</display-name>

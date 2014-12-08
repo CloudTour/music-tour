@@ -216,6 +216,10 @@
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<li><a class="ajax-link" href="Concerts.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
+							<li><a class="ajax-link" href="MyPost.jsp"><i
+									class="glyphicon glyphicon-home"></i><span> MyPost</span></a></li>
+							<li><a class="ajax-link" href="follow-band.jsp"><i
+									class="glyphicon glyphicon-home"></i><span> Bands</span></a></li>
 						</ul>
 					</div>
 				</div>

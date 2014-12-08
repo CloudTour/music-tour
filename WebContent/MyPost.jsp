@@ -217,10 +217,8 @@
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 							<li><a class="ajax-link" href="Concerts.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
-							<li><a class="ajax-link" href="MyPost.jsp"><i
+							<li><a class="ajax-link" href="Concerts.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> MyPost</span></a></li>
-							<li><a class="ajax-link" href="recommend.jsp"><i
-									class="glyphicon glyphicon-home"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Bands</span></a></li>
 						</ul>
@@ -268,8 +266,8 @@
 									class="table table-striped table-bordered bootstrap-datatable datatable responsive">
 									<thead>
 										<tr>
+											<th>ID</th>
 											<th>Name</th>
-											<th>Band</th>
 											<th>Date</th>
 											<th>Price</th>
 											<th>Website</th>
@@ -280,6 +278,9 @@
 									<tbody id="concert-tbody">
 									</tbody>
 								</table>
+								<div style="float: right">
+									<button class="btn btn-primary" onclick="showWin()">Add</button>
+								</div>
 
 							</div>
 						</div>
@@ -352,7 +353,7 @@
 		function init() {
 			debugger;
 			$.ajax({
-						url : "GetConcertByFan",
+						url : "GetConcertByUserName",
 						type : "POST",
 						data : {
 							uname : $("#username").html(),
@@ -368,11 +369,11 @@
 									if (result[i].cwebsite == null)
 										result[i].cwebsite = "";
 									var row = '<tr>'
+											+ '<td class="cid" value="ok">'
+											+ result[i].cid
+											+ '</td>'
 											+ '<td>'
 											+ result[i].cname
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].bname
 											+ '</td>'
 											+ '<td class="center">'
 											+ result[i].cdatetime

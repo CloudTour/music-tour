@@ -352,7 +352,7 @@
 		function init() {
 			debugger;
 			$.ajax({
-						url : "GetConcertByFan",
+						url : "RecommendConcertByFan",
 						type : "POST",
 						data : {
 							uname : $("#username").html(),

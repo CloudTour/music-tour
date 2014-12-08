@@ -92,7 +92,8 @@
 								<!-- Type -->
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-music red"></i></span> <select
+										class="glyphicon glyphicon-music red"></i></span> 
+									<select id="type-select"
 										class="form-control">
 										<option>I'm a music fan</option>
 										<option>I'm a singer</option>
@@ -105,7 +106,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-user red"></i>
-									</span> <input type="text" class="form-control" placeholder="Username">
+									</span> <input type="text" id="username-input" class="form-control" placeholder="Username">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -114,7 +115,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-envelope red"></i>
-									</span> <input type="text" class="form-control" placeholder="Email">
+									</span> <input type="text" id="email-input" class="form-control" placeholder="Email">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -123,7 +124,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-lock red"></i>
-									</span> <input type="password" class="form-control" placeholder="Password">
+									</span> <input type="password" id="password-input" class="form-control" placeholder="Password">
 								</div>
 								<div class="clearfix"></div>
 								<br>
@@ -132,7 +133,7 @@
 								<div class="input-group input-group-lg">
 									<span class="input-group-addon"> <i
 										class="glyphicon glyphicon-lock red"></i>
-									</span> <input type="password" class="form-control"
+									</span> <input type="password" id="repeat-password-input" class="form-control"
 										placeholder="Repeat Password">
 								</div>
 								<div class="clearfix"></div>
@@ -199,7 +200,7 @@
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
 	<script>
-		function regsiter() {
+		function register() {
 			if ($("#email-input").val() == "") {
 				alert("Email cannot be empty.");
 				$("#email-input").focus();
@@ -240,7 +241,7 @@
 					alert(result.status);
 					$("#username-input").focus();
 				} else if ($("#type-select").prop("selectedIndex") == "0") {
-					window.location.href = "singer.jsp?username=" + $("#username-input").val()
+					window.location.href = "user.jsp?username=" + $("#username-input").val()
 							+"&type=0";
 				} else {
 					window.location.href = "singer.jsp?username=" + $("#username-input").val() 

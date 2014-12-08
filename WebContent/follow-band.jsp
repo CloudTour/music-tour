@@ -273,9 +273,6 @@
 									<tbody id="band-tbody">
 									</tbody>
 								</table>
-								<div style="float: right">
-									<button class="btn btn-primary" onclick="showWin()">Add</button>
-								</div>
 
 							</div>
 						</div>
@@ -362,7 +359,7 @@
 			})
 			$.ajax({
 				url : "GetBandByFan",
-				type : "GET",
+				type : "POST",
 				async : false,
 				data : {
 					uname : $("#username").html()

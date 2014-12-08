@@ -1,4 +1,4 @@
-package com.musictour;
+package com.musictour.dbManager;
 
 import java.io.IOException;
 
@@ -7,18 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.musictour.dbManager.DBManager;
+import org.json.simple.JSONObject;
 
 /**
- * Servlet implementation class GetBandByFan
+ * Servlet implementation class DeleteFollow
  */
-public class GetBandByFan extends HttpServlet {
+public class DeleteFollow extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetBandByFan() {
+    public DeleteFollow() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,21 +27,27 @@ public class GetBandByFan extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DBManager ma = new DBManager();
 		String uname = request.getParameter("uname");
+		String follower = request.getParameter("follower");
 		
+		DBManager ma = new DBManager();
 		ma.getDirver();
 		ma.connect();
-		String out = ma.getBandByFan(uname);
+		int out = ma.deleteFollow(uname, follower);
 		ma.shutdown();
-		response.getWriter().write(out);
+		JSONObject obj = new JSONObject();
+		String info = null;
+		if(out == 0) info = "fail";
+		if(out == 1) info = "success";
+		obj.put("status", new String(info));
+		response.getWriter().write(obj.toJSONString());
 	}
 
 }
