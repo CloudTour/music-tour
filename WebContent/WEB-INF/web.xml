@@ -191,13 +191,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>GetType</display-name>
-    <servlet-name>GetType</servlet-name>
-    <servlet-class>com.musictour.GetType</servlet-class>
+    <display-name>GetAllType</display-name>
+    <servlet-name>GetAllType</servlet-name>
+    <servlet-class>com.musictour.GetAllType</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetType</servlet-name>
-    <url-pattern>/GetType</url-pattern>
+    <servlet-name>GetAllType</servlet-name>
+    <url-pattern>/GetAllType</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

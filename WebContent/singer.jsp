@@ -90,6 +90,7 @@
 
 <body>
 	<p style="display: none;" id="username"><%=username%></p>
+	<p style="display: none;" id="usertype"><%=usertype%></p>
 
 	<div class="row" id="popup"
 		style="display: none; width: 100%; height: 100%; position: absolute; z-index: 100;">
@@ -179,15 +180,12 @@
 
 			<!-- user dropdown starts -->
 			<div class="btn-group pull-right">
-				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">
-						Settings</span> <span class="caret"></span>
+				<button id="profile-btn" class="btn btn-default" onclick="profile()">
+					<i class="glyphicon glyphicon-user"></i> Profile
 				</button>
-				<ul class="dropdown-menu">
-					<li><a href="#">Profile</a></li>
-					<li class="divider"></li>
-					<li><a href="login.html">Logout</a></li>
-				</ul>
+				<button id="logout-btn" class="btn btn-default" onclick="logout()">
+					<i class="glyphicon glyphicon-log-out"></i> Logout
+				</button>
 			</div>
 			<!-- user dropdown ends -->
 
@@ -204,7 +202,7 @@
 						<div class="nav-sm nav nav-stacked"></div>
 						<ul class="nav nav-pills nav-stacked main-menu">
 							<li class="nav-header">Main</li>
-							<li><a class="ajax-link" href="index.html"><i
+							<li><a class="ajax-link" href="singer.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 						</ul>
 					</div>

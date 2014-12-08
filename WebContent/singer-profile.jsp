@@ -2,6 +2,16 @@
 	pageEncoding="UTF-8"%>
 
 <%
+	if (session.getAttribute("username") == null) {
+		String username = request.getParameter("username");
+		session.setAttribute("username", username);
+	}
+
+	if (session.getAttribute("usertype") == null) {
+		String usertype = request.getParameter("type");
+		session.setAttribute("usertype", usertype);
+	}
+
 	String username = (String) session.getAttribute("username");
 	String usertype = (String) session.getAttribute("usertype");
 %>
@@ -79,9 +89,11 @@
 </head>
 
 <body>
-<p style="display: none" id="username"><%=username %></p>
-<p style="display: none" id="password"></p>
-<p style="display: none" id="email"></p>
+	<p style="display: none" id="username"><%=username%></p>
+	<p style="display: none;" id="username"><%=username%></p>
+	<p style="display: none;" id="usertype"><%=usertype%></p>
+	<p style="display: none" id="password"></p>
+	<p style="display: none" id="email"></p>
 	<!-- topbar starts -->
 	<div class="navbar navbar-default" role="navigation">
 
@@ -116,7 +128,7 @@
 						<div class="nav-sm nav nav-stacked"></div>
 						<ul class="nav nav-pills nav-stacked main-menu">
 							<li class="nav-header">Main</li>
-							<li><a class="ajax-link" href="index.html"><i
+							<li><a class="ajax-link" href="singer.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Dashboard</span></a></li>
 						</ul>
 					</div>
@@ -222,18 +234,32 @@
 							</div>
 							<div class="box-content">
 								<!-- put your content here -->
-								<div class="control-group">
-									<label class="control-label" for="selectError">Modern Select</label>
+								<div class="row">
+									<table style="width: 100%">
+										<tr>
+											<td style="width: 20%"><select id="type-select"
+												class="form-control">
+											</select></td>
+											<td style="width: 20%"><select id="subtype-select"
+												class="form-control">
+											</select></td>
+											<td style="width: 10%">
+												<button class="form-control" onclick="add()">Add</button>
+											</td>
+											<td style="width: 70%"></td>
+										</tr>
+									</table>
+									<table>
+										<tr>
+											<td>Type</td>
+											<td id="type-td"></td>
+										</tr>
+										<tr>
+											<td>SubType</td>
+											<td id="subtype-td"></td>
+										</tr>
 
-									<div class="controls">
-										<select id="selectError" data-rel="chosen">
-											<option>Option 1</option>
-											<option>Option 2</option>
-											<option>Option 3</option>
-											<option>Option 4</option>
-											<option>Option 5</option>
-										</select>
-									</div>
+									</table>
 								</div>
 
 							</div>
@@ -328,7 +354,7 @@
 				type : "POST",
 				data : {
 					username : $("#username").html(),
-					flag:"1",
+					flag : "1",
 				}
 			}).done(function(data) {
 				debugger;
@@ -340,6 +366,105 @@
 				$("#email").html(result.bemail);
 				$("#password").html(result.bpassword);
 			});
+
+			$.ajax({
+				url : "GetAllType",
+				type : "POST",
+			}).done(function(data) {
+				debugger;
+				var result = JSON.parse(data);
+				$("#type-select option").remove();
+				$("#type-select").append("<option>select type</option>");
+				for (i = 0; i < result.length; ++i) {
+					var option = "<option>" + result[i].tname + "</option>"
+					$("#type-select").append(option);
+				}
+			});
+
+			$.ajax({
+				url : "",
+				type : "POST",
+				data: {
+					uname : $("#username").html(),
+				}
+			}).done(function(data) {
+				debugger;
+				var result = JSON.parse(data);
+				var type = "";
+				for (i = 0; i < result.length; ++i) {
+					type += result[i].tname;
+				}
+				$("#type-td").val(type);
+			});
+
+			$.ajax({
+				url : "",
+				type : "POST",
+				data: {
+					uname : $("#username").html(),
+				}
+			}).done(function(data) {
+				debugger;
+				var result = JSON.parse(data);
+				var type = "";
+				for (i = 0; i < result.length; ++i) {
+					type += result[i].stname;
+				}
+				$("#subtype-td").val(type);
+			});
+
+		}
+
+		$("#type-select").change(function() {
+			debugger;
+			if ($("#type-select").prop("selectedIndex") == 0)
+				return;
+			$.ajax({
+				url : "GetStypeByType",
+				type : "POST",
+				data : {
+					tname : $("#type-select").val(),
+				}
+			}).done(function(data) {
+				debugger;
+				var result = JSON.parse(data);
+				$("#subtype-select option").remove();
+				$("#subtype-select").append("<option>select subtype</option>");
+				for (i = 0; i < result.length; ++i) {
+					var option = "<option>" + result[i].stname + "</option>"
+					$("#subtype-select").append(option);
+				}
+			});
+		});
+		
+		function add() {
+			$.ajax({
+				url : "AddBandType",
+				type : "POST",
+				data : {
+					bname : $("#username").val(),
+					tname: $("#type-select").val()
+				},
+				async: false,
+				success: function () {
+					
+				}
+			});	
+
+			$.ajax({
+				url : "AddBandSubType",
+				type : "POST",
+				data : {
+					bname : $("#username").val(),
+					stname: $("#subtype-select").val()
+				},
+				async: false,
+				success: function () {
+					
+				}
+			});	
+			
+			init();
 		}
 
 		function saveBasic() {
@@ -347,9 +472,9 @@
 				url : "UpdateBandProfile",
 				type : "POST",
 				data : {
-					bname: $("#username").html(),
-					bemail: $("#email").html(),
-					bpassword: $("#password").html(),
+					bname : $("#username").html(),
+					bemail : $("#email").html(),
+					bpassword : $("#password").html(),
 					bfirstname : $("#firstname-input").val(),
 					blastname : $("#lastname-input").val(),
 					bbirthdate : $("#birthdate-input").val(),

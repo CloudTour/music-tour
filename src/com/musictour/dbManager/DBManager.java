@@ -41,9 +41,9 @@ public class DBManager {
 
 	public void connect() {
 		try {
-			url = "jdbc:mysql://localhost/MusicFans?user=root&password=root?useUnicode=true&characterEncoding=UTF-8";
+			url = "jdbc:mysql://localhost/MusicFans?useUnicode=true&characterEncoding=UTF-8";
 			user = "root";
-			password = "root";
+			password = "";
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			System.out.println("connect error");
