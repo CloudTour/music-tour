@@ -858,13 +858,14 @@ public class DBManager {
 		JSONArray array = new JSONArray();
 		try {
 			sql = null;
-			sql = "select c.cid, c.cname, c.bname, c.cdatetime, "
-					+ "c.cprice, c.cwebsite, c.vname, c.confirmed "
-					+ "from fan f1, fan f2, fan f3, concert c "
-					+ "where f1.uname = ? "
-					+ "and f1.bname = f2.bname "
-					+ "and f2.uname = f3.uname "
-					+ "and f3.bname = c.bname "
+			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, c.cwebsite, c.vname, c.confirmed "
+					+ "from fan f1, fan f2, fan f3, concert c  "
+					+ "where f1.uname = 'zy123' "
+					+ "and f1.uname <> f2.uname "
+					+ "and f1.bname = f2.bname  "
+					+ "and f2.uname = f3.uname  "
+					+ "and f3.bname <> f1.bname "
+					+ "and f3.bname = c.bname  "
 					+ "group by c.cid having count(*) >= 2";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, uname);
