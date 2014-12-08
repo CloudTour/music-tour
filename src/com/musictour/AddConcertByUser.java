@@ -2,6 +2,7 @@ package com.musictour;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import com.musictour.dbManager.DBManager;
 /**
  * Servlet implementation class AddConcertByUser
  */
+@WebServlet("/AddConcertByUser")
 public class AddConcertByUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

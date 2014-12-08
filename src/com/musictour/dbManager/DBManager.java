@@ -41,9 +41,9 @@ public class DBManager {
 
 	public void connect() {
 		try {
-			url = "jdbc:mysql://localhost/MusicFans?useUnicode=true&characterEncoding=UTF-8";
+			url = "jdbc:mysql://localhost/MusicFans?user=root&password=root?useUnicode=true&characterEncoding=UTF-8";
 			user = "root";
-			password = "";
+			password = "root";
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			System.out.println("connect error");
@@ -277,6 +277,130 @@ public class DBManager {
 		return 1;
 	}
 
+	public int updateUserProfile(String uname, String upassword, String uscore,
+			String ulastname, String ufirstname, String ubirthdate,
+			String uemail, String ucity) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "update user set  upassword = ?,  uscore = ?, ulastname = ?"
+					+ ", ufirstname = ?, ubirthdate = ?, uemail = ? ,ucity = ?  WHERE uname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, upassword);
+				updateStatus.setString(2, uscore);
+				updateStatus.setString(3, ulastname);
+				updateStatus.setString(4, ufirstname);
+				updateStatus.setString(5, ubirthdate);
+				updateStatus.setString(6, uemail);
+				updateStatus.setString(7, ucity);
+				updateStatus.setString(8, uname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int addUserType(String uname, String tname) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert usertype values  uname = ?,  tname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, tname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int addUserSubType(String uname, String stname) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert usersubtype values  uname = ?,  stname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, stname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int addBandType(String bname, String tname) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert usertype values  bname = ?,  tname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, bname);
+				updateStatus.setString(2, tname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int addBandSubType(String bname, String stname) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert usersubtype values  bname = ?,  stname = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, bname);
+				updateStatus.setString(2, stname);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
 	public int addConcert(String cname, String bname, String cdatetime,
 			String cprice, String cwebsite, String vname, String uname,
 			String confirmed) {
@@ -879,6 +1003,7 @@ public class DBManager {
 				obj.put("cprice", rs.getString("cprice"));
 				obj.put("cwebsite", rs.getString("cwebsite"));
 				obj.put("vname", rs.getString("vname"));
+				//obj.put("uname", rs.getString("uname"));
 				obj.put("confirmed", rs.getString("confirmed"));
 				array.add(obj);
 			}
