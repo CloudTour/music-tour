@@ -271,8 +271,8 @@
 									class="table table-striped table-bordered bootstrap-datatable datatable responsive">
 									<thead>
 										<tr>
+											<th>ID</th>
 											<th>Name</th>
-											<th>Band</th>
 											<th>Date</th>
 											<th>Price</th>
 											<th>Website</th>
@@ -283,6 +283,9 @@
 									<tbody id="concert-tbody">
 									</tbody>
 								</table>
+								<div style="float: right">
+									<button class="btn btn-primary" onclick="showWin()">Add</button>
+								</div>
 
 							</div>
 						</div>
@@ -366,12 +369,12 @@
 					debugger;
 					var result = JSON.parse(data);
 					for (i = 0; i < result.length; ++i) {
-						attends[result[i].cid] = true;
+						attends[result[i].cid] = result[i].attended;
 					}
 				}
 			});
 			$.ajax({
-						url : "RecommendConcertByFan",
+						url : "GetConcertByAttend",
 						type : "POST",
 						data : {
 							uname : $("#username").html(),
@@ -387,19 +390,19 @@
 									if (result[i].cwebsite == null)
 										result[i].cwebsite = "";
 									var attendBtn = "";
-									if (!(result[i].cid in attends)) {
+									if ((result[i].cid in attends) && attends[result[i].cid] == '0') {
 										attendBtn = ('<a class="btn btn-success" onclick="attend(\''
 												+ result[i].cid
 												+ '\')" href="#">'
 												+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
-												+ 'Attend' + '</a>');
+												+ 'Has Attended' + '</a>');
 									}
 									var row = '<tr>'
+											+ '<td class="cid" value="ok">'
+											+ result[i].cid
+											+ '</td>'
 											+ '<td>'
 											+ result[i].cname
-											+ '</td>'
-											+ '<td class="center">'
-											+ result[i].bname
 											+ '</td>'
 											+ '<td class="center">'
 											+ result[i].cdatetime
@@ -497,12 +500,12 @@
 		function attend(cid) {
 			debugger;
 			$.ajax({
-				url : "AddAttend",
+				url : "UpdateAttend",
 				type : "POST",
 				data : {
 					cid: cid,
 					uname : $("#username").html(),
-					attended:'0'
+					attended:'1'
 				}
 			}).done(function(data) {
 				var result = JSON.parse(data);
@@ -510,7 +513,6 @@
 				init();
 			});
 		}
-
 
 		init();
 	</script>

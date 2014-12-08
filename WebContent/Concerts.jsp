@@ -88,6 +88,7 @@
 
 <body>
 	<p style="display: none;" id="username"><%=username%></p>
+	<p style="display: none;" id="usertype"><%=usertype%></p>
 
 	<!-- Add Table -->
 	<div class="row" id="popup"
@@ -218,6 +219,10 @@
 									class="glyphicon glyphicon-home"></i><span> Concerts</span></a></li>
 							<li><a class="ajax-link" href="MyPost.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> MyPost</span></a></li>
+							<li><a class="ajax-link" href="attend.jsp"><i
+									class="glyphicon glyphicon-home"></i><span> Attend</span></a></li>
+							<li><a class="ajax-link" href="recommend.jsp"><i
+									class="glyphicon glyphicon-home"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
 									class="glyphicon glyphicon-home"></i><span> Bands</span></a></li>
 						</ul>
@@ -349,6 +354,27 @@
 			$('#concert-table').DataTable();
 		});
 		function init() {
+			debugger;
+			var attends = {};
+			if ($("#usertype").html() == "0") {
+				$.ajax({
+					url : "GetConcertByAttend",
+					type : "POST",
+					data : {
+						uname : $("#username").html(),
+					},
+					asyc : false,
+					success : function(data) {
+						debugger;
+						var result = JSON.parse(data);
+						for (i = 0; i < result.length; ++i) {
+							attends[result[i].cid] = true;
+						}
+					}
+				});
+
+			}
+
 			$
 					.ajax({
 						url : "GetAllConcert",
@@ -356,12 +382,22 @@
 					})
 					.done(
 							function(data) {
+								debugger;
 								var result = JSON.parse(data);
 								if ($("#concert-tbody tr").length > 0)
 									$("#concert-tbody tr").remove();
 								for (var i = 0; i < result.length; ++i) {
 									if (result[i].cwebsite == null)
 										result[i].cwebsite = "";
+									var attendBtn = ""; 
+									if ($("#usertype").html() == '0'
+											&& !(result[i].cid in attends)) {
+										attendBtn = ('<a class="btn btn-success" onclick="attend(\''
+												+ result[i].cid
+												+ '\')" href="#">'
+												+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
+												+ 'Attend' + '</a>');
+									}
 									var row = '<tr>' + '<td>'
 											+ result[i].cname
 											+ '</td>'
@@ -378,11 +414,13 @@
 											+ result[i].vname
 											+ '</td>'
 											+ '<td class="center"> '
-											+ '<a class="btn btn-success" href="review.jsp?concertid='
+											+ '<a class="btn btn-default" href="review.jsp?concertid='
 											+ result[i].cid
 											+ '">'
 											+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
-											+ 'View' + '</a>' + '</td> '
+											+ 'View' + '</a>'
+											+ attendBtn
+											+ '</td> '
 											+ '</tr>';
 									$("#concert-tbody").append(row);
 								}
@@ -452,6 +490,22 @@
 				var result = JSON.parse(data);
 				alert(result.status);
 				$("#popup").fadeOut();
+				init();
+			});
+		}
+		function attend(cid) {
+			debugger;
+			$.ajax({
+				url : "AddAttend",
+				type : "POST",
+				data : {
+					cid : cid,
+					uname : $("#username").html(),
+					attended : '0'
+				}
+			}).done(function(data) {
+				var result = JSON.parse(data);
+				alert(result.status);
 				init();
 			});
 		}

@@ -984,7 +984,7 @@ public class DBManager {
 			sql = null;
 			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, c.cwebsite, c.vname, c.confirmed "
 					+ "from fan f1, fan f2, fan f3, concert c  "
-					+ "where f1.uname = 'zy123' "
+					+ "where f1.uname = ? "
 					+ "and f1.uname <> f2.uname "
 					+ "and f1.bname = f2.bname  "
 					+ "and f2.uname = f3.uname  "
