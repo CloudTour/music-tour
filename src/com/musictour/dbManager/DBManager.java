@@ -1037,6 +1037,27 @@ public class DBManager {
 		return array.toJSONString();
 	}
 
+	public int getScoreByUser(String uname) {
+		int score = 0;
+		try {
+			sql = null;
+			sql = "select uscore from user where uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				score = rs.getInt("uscore");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return score;
+	}
+	
 	public static void main(String args[]) {
 		DBManager ma = new DBManager();
 		ma.getDirver();
@@ -1058,7 +1079,7 @@ public class DBManager {
 		// System.out.print(ma.getRatedByConcert("1"));
 		// ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av",
 		// "sdf", "1");
-		System.out.println(ma.recommendConcertByFan("zy123"));
+		System.out.println(ma.getScoreByUser("zy123"));
 		// ma.deleteFan("zy123", "MBand");
 		ma.shutdown();
 	}

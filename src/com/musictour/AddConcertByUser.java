@@ -50,16 +50,21 @@ public class AddConcertByUser extends HttpServlet {
 		DBManager ma = new DBManager();
 		ma.getDirver();
 		ma.connect();
-		int out = ma.addConcert(cname, bname, cdatetime,
-				cprice, cwebsite, vname, uname,
-				confirmed);
-		ma.shutdown();
-		JSONObject obj = new JSONObject();
-		String info = null;
-		if(out == 0) info = "fail";
-		if(out == 1) info = "success";
-		obj.put("status", new String(info));
-		response.getWriter().write(obj.toJSONString());
+		int score = ma.getScoreByUser(uname);
+		if(score < 10) {
+			response.getWriter().write("not enough score");
+		} else {
+			int out = ma.addConcert(cname, bname, cdatetime,
+					cprice, cwebsite, vname, uname,
+					confirmed);
+			ma.shutdown();
+			JSONObject obj = new JSONObject();
+			String info = null;
+			if(out == 0) info = "fail";
+			if(out == 1) info = "success";
+			obj.put("status", new String(info));
+			response.getWriter().write(obj.toJSONString());
+		}
 	}
 
 }
