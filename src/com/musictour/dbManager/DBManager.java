@@ -612,6 +612,39 @@ public class DBManager {
 		return array.toJSONString();
 	}
 
+	public String getConcertByReview(String review) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select c.cid, c.cname, c.bname, "
+					+ "c.cdatetime, c.cprice, c.cwebsite, "
+					+ "c.vname, c.uname, c.confirmed"
+					+ " from concert c, rate r "
+					+ "where r.review like ? and c.cid = r.cid";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, "%" +review +"%");
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
 	public String getAllBand() {
 		JSONArray array = new JSONArray();
 		try {
@@ -984,7 +1017,7 @@ public class DBManager {
 			sql = null;
 			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, c.cwebsite, c.vname, c.confirmed "
 					+ "from fan f1, fan f2, fan f3, concert c  "
-					+ "where f1.uname = ? "
+					+ "where f1.uname = 'zy123' "
 					+ "and f1.uname <> f2.uname "
 					+ "and f1.bname = f2.bname  "
 					+ "and f2.uname = f3.uname  "
@@ -1079,7 +1112,7 @@ public class DBManager {
 		// System.out.print(ma.getRatedByConcert("1"));
 		// ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av",
 		// "sdf", "1");
-		System.out.println(ma.getScoreByUser("zy123"));
+		System.out.println(ma.getConcertByReview("veryas"));
 		// ma.deleteFan("zy123", "MBand");
 		ma.shutdown();
 	}
