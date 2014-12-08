@@ -299,4 +299,59 @@
     <servlet-name>AddBandSubType</servlet-name>
     <url-pattern>/AddBandSubType</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <description></description>
+    <display-name>AddConcertByBand</display-name>
+    <servlet-name>AddConcertByBand</servlet-name>
+    <servlet-class>com.musictour.AddConcertByBand</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddConcertByBand</servlet-name>
+    <url-pattern>/AddConcertByBand</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>RateConcertByUser</display-name>
+    <servlet-name>RateConcertByUser</servlet-name>
+    <servlet-class>com.musictour.RateConcertByUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RateConcertByUser</servlet-name>
+    <url-pattern>/RateConcertByUser</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description></description>
+    <display-name>GetRatedConcertByUserName</display-name>
+    <servlet-name>GetRatedConcertByUserName</servlet-name>
+    <servlet-class>com.musictour.GetRatedConcertByUserName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRatedConcertByUserName</servlet-name>
+    <url-pattern>/GetRatedConcertByUserName</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description></description>
+    <display-name>GetConcertByUserName</display-name>
+    <servlet-name>GetConcertByUserName</servlet-name>
+    <servlet-class>com.musictour.GetConcertByUserName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByUserName</servlet-name>
+    <url-pattern>/GetConcertByUserName</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>GetConcertByBandName</display-name>
+    <servlet-name>GetConcertByBandName</servlet-name>
+    <servlet-class>com.musictour.GetConcertByBandName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByBandName</servlet-name>
+    <url-pattern>/GetConcertByBandName</url-pattern>
+  </servlet-mapping>
 </web-app>

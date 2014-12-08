@@ -1,4 +1,4 @@
-package com.musictour.dbManager;
+package com.musictour;
 
 import java.io.IOException;
 
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
+
+import com.musictour.dbManager.DBManager;
 
 /**
  * Servlet implementation class DeleteFollow
