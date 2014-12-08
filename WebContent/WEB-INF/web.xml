@@ -343,6 +343,17 @@
     <servlet-name>GetConcertByUserName</servlet-name>
     <url-pattern>/GetConcertByUserName</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <description></description>
+    <display-name>AddConcertByUser</display-name>
+    <servlet-name>AddConcertByUser</servlet-name>
+    <servlet-class>com.musictour.AddConcertByUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddConcertByUser</servlet-name>
+    <url-pattern>/AddConcertByUser</url-pattern>
+  </servlet-mapping>
   
   <servlet>
     <description></description>
