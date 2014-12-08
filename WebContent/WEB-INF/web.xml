@@ -274,6 +274,37 @@
     <servlet-name>RateConcertByUser</servlet-name>
     <url-pattern>/RateConcertByUser</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <description></description>
+    <display-name>AddAttend</display-name>
+    <servlet-name>AddAttend</servlet-name>
+    <servlet-class>com.musictour.AddAttend</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAttend</servlet-name>
+    <url-pattern>/AddAttend</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateAttend</display-name>
+    <servlet-name>UpdateAttend</servlet-name>
+    <servlet-class>com.musictour.dbManager.UpdateAttend</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateAttend</servlet-name>
+    <url-pattern>/UpdateAttend</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetConcertByAttend</display-name>
+    <servlet-name>GetConcertByAttend</servlet-name>
+    <servlet-class>com.musictour.GetConcertByAttend</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByAttend</servlet-name>
+    <url-pattern>/GetConcertByAttend</url-pattern>
+  </servlet-mapping>
 </web-app>
 <!--   
   <servlet>

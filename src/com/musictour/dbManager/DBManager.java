@@ -382,6 +382,83 @@ public class DBManager {
 		return array.toJSONString();
 	}
 
+	public String getConcertByAttend(String uname) {
+		JSONArray array = new JSONArray();
+		try {
+			sql = null;
+			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, c.cwebsite, c.vname, c.uname, c.confirmed from attend a, concert c where a.cid = c.cid and a.uname = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, uname);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				JSONObject obj = new JSONObject();
+				// cid cname bname cdatetime cprice cwebsite vname uname
+				// confirmed
+				obj.put("cid", rs.getString("cid"));
+				obj.put("cname", rs.getString("cname"));
+				obj.put("bname", rs.getString("bname"));
+				obj.put("cdatetime", rs.getString("cdatetime"));
+				obj.put("cprice", rs.getString("cprice"));
+				obj.put("cwebsite", rs.getString("cwebsite"));
+				obj.put("vname", rs.getString("vname"));
+				obj.put("uname", rs.getString("uname"));
+				obj.put("confirmed", rs.getString("confirmed"));
+				array.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array.toJSONString();
+	}
+	
+	public int addAttend(String uname, String cid, String attended) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "insert into attend values(?, ?, ?)";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, uname);
+				updateStatus.setString(2, cid);
+				updateStatus.setString(3, attended);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
+	public int updateAttend(String attended, String uname, String cid) {
+		try {
+			PreparedStatement updateStatus = null;
+			sql = "update attend set attend = ? where uname = ? and cid = ?";
+			try {
+				updateStatus = conn.prepareStatement(sql);
+				updateStatus.setString(1, attended);
+				updateStatus.setString(2, uname);
+				updateStatus.setString(3, cid);
+				updateStatus.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} finally {
+				updateStatus.close();
+			}
+		} catch (SQLException e) {
+			System.out.println("sql error");
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+	
 	public String getAllConcert() {
 		JSONArray array = new JSONArray();
 		try {
@@ -781,12 +858,15 @@ public class DBManager {
 		JSONArray array = new JSONArray();
 		try {
 			sql = null;
-			sql = "select c.cid, c.cname, c.bname, c.cdatetime, "
-					+ "c.cprice, c.cwebsite, c.vname, c.confirmed "
-					+ "from fan f1, fan f2, fan f3, concert c "
-					+ "where f1.uname = ?" + " and f1.bname = f2.bname "
-					+ "and f2.uname = f3.uname " + "and f3.bname = c.bname "
-					+ "group by c.cid having count(*) >= 2;";
+			sql = "select c.cid, c.cname, c.bname, c.cdatetime, c.cprice, c.cwebsite, c.vname, c.confirmed "
+					+ "from fan f1, fan f2, fan f3, concert c  "
+					+ "where f1.uname = 'zy123' "
+					+ "and f1.uname <> f2.uname "
+					+ "and f1.bname = f2.bname  "
+					+ "and f2.uname = f3.uname  "
+					+ "and f3.bname <> f1.bname "
+					+ "and f3.bname = c.bname  "
+					+ "group by c.cid having count(*) >= 2";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, uname);
 			rs = preparedStatement.executeQuery();
@@ -799,7 +879,6 @@ public class DBManager {
 				obj.put("cprice", rs.getString("cprice"));
 				obj.put("cwebsite", rs.getString("cwebsite"));
 				obj.put("vname", rs.getString("vname"));
-//				obj.put("uname", rs.getString("uname"));
 				obj.put("confirmed", rs.getString("confirmed"));
 				array.add(obj);
 			}
@@ -854,7 +933,7 @@ public class DBManager {
 		// System.out.print(ma.getRatedByConcert("1"));
 		// ma.addConcert("concert1", "band1", getNow(), "4", "www.q", "8av",
 		// "sdf", "1");
-		System.out.println(ma.getAllBand());
+		System.out.println(ma.recommendConcertByFan("zy123"));
 		// ma.deleteFan("zy123", "MBand");
 		ma.shutdown();
 	}
