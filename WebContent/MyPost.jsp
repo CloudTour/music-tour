@@ -222,6 +222,8 @@
 									class="glyphicon glyphicon-user"></i><span> MyPost</span></a></li>
 							<li><a class="ajax-link" href="attend.jsp"><i
 									class="glyphicon glyphicon-heart"></i><span> Attend</span></a></li>
+							<li><a class="ajax-link" href="like.jsp"><i
+									class="glyphicon glyphicon-heart"></i><span> Like</span></a></li>
 							<li><a class="ajax-link" href="recommend.jsp"><i
 									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i

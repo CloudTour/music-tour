@@ -221,6 +221,8 @@
 									class="glyphicon glyphicon-user"></i><span> MyPost</span></a></li>
 							<li><a class="ajax-link" href="attend.jsp"><i
 									class="glyphicon glyphicon-heart"></i><span> Attend</span></a></li>
+							<li><a class="ajax-link" href="like.jsp"><i
+									class="glyphicon glyphicon-heart"></i><span> Like</span></a></li>
 							<li><a class="ajax-link" href="recommend.jsp"><i
 									class="glyphicon glyphicon-glass"></i><span> Recommend</span></a></li>
 							<li><a class="ajax-link" href="follow-band.jsp"><i
@@ -376,6 +378,26 @@
 
 			}
 
+			var likes = [];
+			if ($("#usertype").html() == "0") {
+				$.ajax({
+					url : "GetConcertByLikes",
+					type : "POST",
+					async : false,
+					data : {
+						uname : $("#username").html(),
+					},
+					success : function(data) {
+						debugger;
+						var result = JSON.parse(data);
+						for (i = 0; i < result.length; ++i) {
+							likes.push(result[i].cid);
+						}
+					}
+				});
+
+			}
+
 			var concerts = {};
 			$.ajax({
 				url : "GetAllConcert",
@@ -404,6 +426,14 @@
 							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
 							+ 'Attend' + '</a>');
 				}
+				var likeBtn = "";
+				if ($("#usertype").html() == '0' && likes.indexOf(i) == -1) {
+					likeBtn = ('<a class="btn btn-danger" onclick="like(\''
+							+ concerts[i].cid
+							+ '\')" href="#">'
+							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
+							+ 'Like' + '</a>');
+				}
 				var row = '<tr>' + '<td>'
 						+ concerts[i].cname
 						+ '</td>'
@@ -427,7 +457,7 @@
 						+ concerts[i].cid
 						+ '">'
 						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
-						+ 'View' + '</a>' + attendBtn + '</td> ' + '</tr>';
+						+ 'View' + '</a>' + attendBtn + likeBtn+ '</td> ' + '</tr>';
 				$("#concert-tbody").append(row);
 			}
 		}
@@ -508,6 +538,22 @@
 					attended : '0'
 				}
 			}).done(function(data) {
+				var result = JSON.parse(data);
+				alert(result.status);
+				init();
+			});
+		}
+		function like(cid) {
+			debugger;
+			$.ajax({
+				url : "AddLikes",
+				type : "POST",
+				data : {
+					cid : cid,
+					uname : $("#username").html(),
+				}
+			}).done(function(data) {
+				debugger;
 				var result = JSON.parse(data);
 				alert(result.status);
 				init();

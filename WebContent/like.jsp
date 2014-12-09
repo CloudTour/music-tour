@@ -255,7 +255,7 @@
 				<div>
 					<ul class="breadcrumb">
 						<li><a href="#">Home</a></li>
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="#">Like</a></li>
 					</ul>
 				</div>
 
@@ -265,8 +265,7 @@
 						<div class="box-inner">
 							<div class="box-header well" data-original-title="">
 								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Concerts by My Favorite
-									Bands
+									<i class="glyphicon glyphicon-star-empty"></i> Concerts 
 								</h2>
 
 							</div>
@@ -288,41 +287,6 @@
 									<tbody id="concert-tbody">
 									</tbody>
 								</table>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="box col-md-12">
-						<div class="box-inner">
-							<div class="box-header well" data-original-title="">
-								<h2>
-									<i class="glyphicon glyphicon-star-empty"></i> Concerts liked by
-									Friends
-								</h2>
-
-							</div>
-							<div class="box-content">
-								<!-- put your content here -->
-								<table id="concert2-table"
-									class="table table-striped table-bordered bootstrap-datatable datatable responsive">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Band</th>
-											<th>Date</th>
-											<th>Price</th>
-											<th>Website</th>
-											<th>Venue</th>
-											<th>Active</th>
-										</tr>
-									</thead>
-									<tbody id="concert2-tbody">
-									</tbody>
-								</table>
-
 							</div>
 						</div>
 					</div>
@@ -392,7 +356,7 @@
 			debugger;
 			var attends = [];
 			$.ajax({
-				url : "GetConcertByAttend",
+				url : "GetConcertByLikes",
 				type : "POST",
 				async : false,
 				data : {
@@ -409,7 +373,7 @@
 
 			var concerts = {};
 			$.ajax({
-				url : "GetConcertByFan",
+				url : "GetConcertByLikes",
 				type : "POST",
 				async : false,
 				data : {
@@ -421,13 +385,12 @@
 					for (i = 0; i < result.length; ++i) {
 						concerts[result[i].cid] = result[i];
 					}
-
 				}
 			})
-
-			debugger;
+			
+				debugger;
 			$("#concert-tbody tr").remove();
-			for ( var i in concerts) {
+			for (var i in concerts) {
 				if (concerts[i].cwebsite == null)
 					concerts[i].cwebsite = "";
 				var attendBtn = "";
@@ -436,7 +399,7 @@
 							+ concerts[i].cid
 							+ '\')" href="#">'
 							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
-							+ 'Attend' + '</a>');
+							+ 'Like' + '</a>');
 				}
 				var row = '<tr>' + '<td>'
 						+ concerts[i].cname
@@ -463,84 +426,6 @@
 						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
 						+ 'View' + '</a>' + attendBtn + '</td> ' + '</tr>';
 				$("#concert-tbody").append(row);
-			}
-			init2();
-		}
-		function init2() {
-			debugger;
-			var attends = [];
-			$.ajax({
-				url : "GetConcertByAttend",
-				type : "POST",
-				async : false,
-				data : {
-					uname : $("#username").html(),
-				},
-				success : function(data) {
-					debugger;
-					var result = JSON.parse(data);
-					for (i = 0; i < result.length; ++i) {
-						attends.push(result[i].cid);
-					}
-				}
-			});
-
-			var concerts = {};
-			$.ajax({
-				url : "GetConcertByLikesFollow",
-				type : "POST",
-				async : false,
-				data : {
-					uname : $("#username").html(),
-				},
-				success : function(data) {
-					debugger;
-					var result = JSON.parse(data);
-					for (i = 0; i < result.length; ++i) {
-						concerts[result[i].cid] = result[i];
-					}
-
-				}
-			})
-
-			debugger;
-			$("#concert2-tbody tr").remove();
-			for ( var i in concerts) {
-				if (concerts[i].cwebsite == null)
-					concerts[i].cwebsite = "";
-				var attendBtn = "";
-				if ($("#usertype").html() == '0' && attends.indexOf(i) == -1) {
-					attendBtn = ('<a class="btn btn-success" onclick="attend(\''
-							+ concerts[i].cid
-							+ '\')" href="#">'
-							+ '<i class="glyphicon glyphicon-heart icon-white"></i>'
-							+ 'Attend' + '</a>');
-				}
-				var row = '<tr>' + '<td>'
-						+ concerts[i].cname
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].bname
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].cdatetime
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].cprice
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].cwebsite
-						+ '</td>'
-						+ '<td class="center">'
-						+ concerts[i].vname
-						+ '</td>'
-						+ '<td class="center"> '
-						+ '<a class="btn btn-default" href="review.jsp?concertid='
-						+ concerts[i].cid
-						+ '">'
-						+ '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'
-						+ 'View' + '</a>' + attendBtn + '</td> ' + '</tr>';
-				$("#concert2-tbody").append(row);
 			}
 		}
 
@@ -606,23 +491,6 @@
 				var result = JSON.parse(data);
 				alert(result.status);
 				$("#popup").fadeOut();
-				init();
-			});
-		}
-
-		function attend(cid) {
-			debugger;
-			$.ajax({
-				url : "AddAttend",
-				type : "POST",
-				data : {
-					cid : cid,
-					uname : $("#username").html(),
-					attended : '0'
-				}
-			}).done(function(data) {
-				var result = JSON.parse(data);
-				alert(result.status);
 				init();
 			});
 		}

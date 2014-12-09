@@ -419,4 +419,54 @@
     <servlet-name>GetBandStype</servlet-name>
     <url-pattern>/GetBandStype</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>GetConcertByLikes</display-name>
+    <servlet-name>GetConcertByLikes</servlet-name>
+    <servlet-class>com.musictour.GetConcertByLikes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByLikes</servlet-name>
+    <url-pattern>/GetConcertByLikes</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddLikes</display-name>
+    <servlet-name>AddLikes</servlet-name>
+    <servlet-class>com.musictour.AddLikes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddLikes</servlet-name>
+    <url-pattern>/AddLikes</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteLikes</display-name>
+    <servlet-name>DeleteLikes</servlet-name>
+    <servlet-class>com.musictour.DeleteLikes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteLikes</servlet-name>
+    <url-pattern>/DeleteLikes</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetConcertByLikesFollow</display-name>
+    <servlet-name>GetConcertByLikesFollow</servlet-name>
+    <servlet-class>com.musictour.GetConcertByLikesFollow</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetConcertByLikesFollow</servlet-name>
+    <url-pattern>/GetConcertByLikesFollow</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecommendConcertByAvgRate</display-name>
+    <servlet-name>RecommendConcertByAvgRate</servlet-name>
+    <servlet-class>com.musictour.RecommendConcertByAvgRate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecommendConcertByAvgRate</servlet-name>
+    <url-pattern>/RecommendConcertByAvgRate</url-pattern>
+  </servlet-mapping>
 </web-app>
